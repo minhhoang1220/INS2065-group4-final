@@ -1,0 +1,38 @@
+<%= form_with(model: swipe) do |form| %>
+<% if swipe.errors.any? %>
+<div id="error_explanation" class="bg-red-50 p-6 rounded text-red-800">
+  <h2 class="text-lg font-semibold mb-3"><%= pluralize(swipe.errors.count, "error") %> prohibited this swipe from being saved:</h2>
+
+  <ul class="list-disc leading-relaxed">
+    <% swipe.errors.full_messages.each do |message| %>
+    <li><%= message %></li>
+    <% end %>
+  </ul>
+</div>
+<% end %>
+
+  <div class="mb-6">
+        <%= form.label :SwiperUserID, class: label_class %>
+          <%= form.number_field :SwiperUserID, class: input_class %>
+      </div>
+  <div class="mb-6">
+        <%= form.label :SwipedUserID, class: label_class %>
+          <%= form.number_field :SwipedUserID, class: input_class %>
+      </div>
+  <div class="mb-6">
+        <%= form.label :SwipeType, class: label_class %>
+          <%= form.text_field :SwipeType, class: input_class %>
+      </div>
+  <div class="mb-6">
+        <%= form.label :SwipeTimestamp, class: label_class %>
+          <%= form.datetime_field :SwipeTimestamp, class: input_class %>
+      </div>
+
+<%= form.submit class: button_class(theme: 'primary') %>
+
+<% if swipe.persisted? %>
+<%= link_to "Cancel", swipe, class: "text-neutral-700 underline inline-block ml-3" %>
+<% else %>
+<%= link_to "Cancel", swipes_path, class:  "text-neutral-700 underline inline-block ml-3" %>
+<% end %>
+<% end %>

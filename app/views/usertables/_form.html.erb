@@ -1,0 +1,58 @@
+<%= form_with(model: usertable) do |form| %>
+<% if usertable.errors.any? %>
+<div id="error_explanation" class="bg-red-50 p-6 rounded text-red-800">
+  <h2 class="text-lg font-semibold mb-3"><%= pluralize(usertable.errors.count, "error") %> prohibited this usertable from being saved:</h2>
+
+  <ul class="list-disc leading-relaxed">
+    <% usertable.errors.full_messages.each do |message| %>
+    <li><%= message %></li>
+    <% end %>
+  </ul>
+</div>
+<% end %>
+
+  <div class="mb-6">
+        <%= form.label :TypeMem, class: label_class %>
+          <%= form.text_field :TypeMem, class: input_class %>
+      </div>
+  <div class="mb-6">
+        <%= form.label :name, class: label_class %>
+          <%= form.text_field :name, class: input_class %>
+      </div>
+  <div class="mb-6">
+        <%= form.label :email, class: label_class %>
+          <%= form.text_field :email, class: input_class %>
+      </div>
+  <div class="mb-6">
+        <%= form.label :password, class: label_class %>
+          <%= form.text_field :password, class: input_class %>
+      </div>
+  <div class="mb-6">
+        <%= form.label :active, class: label_class %>
+          <%= form.text_field :active, class: input_class %>
+      </div>
+  <div class="mb-6">
+        <%= form.label :age, class: label_class %>
+          <%= form.number_field :age, class: input_class %>
+      </div>
+  <div class="mb-6">
+        <%= form.label :gender, class: label_class %>
+          <%= form.text_field :gender, class: input_class %>
+      </div>
+  <div class="mb-6">
+        <%= form.label :image, class: label_class %>
+          <%= form.text_field :image, class: input_class %>
+      </div>
+  <div class="mb-6">
+        <%= form.label :bio, class: label_class %>
+          <%= form.text_area :bio, class: input_class %>
+      </div>
+
+<%= form.submit class: button_class(theme: 'primary') %>
+
+<% if usertable.persisted? %>
+<%= link_to "Cancel", usertable, class: "text-neutral-700 underline inline-block ml-3" %>
+<% else %>
+<%= link_to "Cancel", usertables_path, class:  "text-neutral-700 underline inline-block ml-3" %>
+<% end %>
+<% end %>

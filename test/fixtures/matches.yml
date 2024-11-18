@@ -1,0 +1,11 @@
+# Read about fixtures at https://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  User1ID: 1
+  User2ID: 1
+  MatchTimestamp: 2024-11-18 14:24:40
+
+two:
+  User1ID: 1
+  User2ID: 1
+  MatchTimestamp: 2024-11-18 14:24:40

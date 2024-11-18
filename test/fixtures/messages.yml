@@ -1,0 +1,15 @@
+# Read about fixtures at https://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  matchID: 1
+  senderID: 1
+  receiverID: 1
+  messageText: MyText
+  messageTimestamp: 2024-11-18 14:24:49
+
+two:
+  matchID: 1
+  senderID: 1
+  receiverID: 1
+  messageText: MyText
+  messageTimestamp: 2024-11-18 14:24:49

@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2023_03_08_130018) do
+ActiveRecord::Schema[7.0].define(version: 2024_11_18_142449) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
@@ -63,6 +63,41 @@ ActiveRecord::Schema[7.0].define(version: 2023_03_08_130018) do
     t.index ["sluggable_type", "sluggable_id"], name: "index_friendly_id_slugs_on_sluggable_type_and_sluggable_id"
   end
 
+  create_table "matches", force: :cascade do |t|
+    t.integer "User1ID"
+    t.integer "User2ID"
+    t.datetime "MatchTimestamp", precision: nil
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
+  create_table "memberships", force: :cascade do |t|
+    t.string "TypeMem"
+    t.decimal "price"
+    t.text "description"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
+  create_table "messages", force: :cascade do |t|
+    t.integer "matchID"
+    t.integer "senderID"
+    t.integer "receiverID"
+    t.text "messageText"
+    t.datetime "messageTimestamp", precision: nil
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
+  create_table "swipes", force: :cascade do |t|
+    t.integer "SwiperUserID"
+    t.integer "SwipedUserID"
+    t.string "SwipeType"
+    t.datetime "SwipeTimestamp", precision: nil
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
   create_table "users", force: :cascade do |t|
     t.string "email", default: "", null: false
     t.string "encrypted_password", default: "", null: false
@@ -76,6 +111,20 @@ ActiveRecord::Schema[7.0].define(version: 2023_03_08_130018) do
     t.datetime "updated_at", null: false
     t.index ["email"], name: "index_users_on_email", unique: true
     t.index ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true
+  end
+
+  create_table "usertables", force: :cascade do |t|
+    t.string "TypeMem"
+    t.string "name"
+    t.string "email"
+    t.string "password"
+    t.string "active"
+    t.integer "age"
+    t.string "gender"
+    t.string "image"
+    t.text "bio"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
   end
 
   add_foreign_key "active_storage_attachments", "active_storage_blobs", column: "blob_id"

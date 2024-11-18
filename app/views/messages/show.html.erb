@@ -1,0 +1,37 @@
+<div class="max-w-3xl mx-auto px-4">
+  <div class="flex items-center justify-between">
+    <h1 class="flex-1 font-bold text-3xl">Message</h1>
+
+    <div class="flex-wrap lg:flex items-center lg:space-x-3">
+      <%= link_to messages_path, class: button_class(theme: "transparent") do %>
+      All Messages
+      <% end %>
+      <%= link_to edit_message_path(@message), class: button_class(theme:"primary") do %>
+      Edit
+      <% end %>
+    </div>
+  </div>
+
+  <ul class="text-slate-700">
+      <li>
+        <p class="font-semibold">Matchid:</p>
+        <p><%= @message.matchID %></p>
+      </li>
+      <li>
+        <p class="font-semibold">Senderid:</p>
+        <p><%= @message.senderID %></p>
+      </li>
+      <li>
+        <p class="font-semibold">Receiverid:</p>
+        <p><%= @message.receiverID %></p>
+      </li>
+      <li>
+        <p class="font-semibold">Messagetext:</p>
+        <p><%= @message.messageText %></p>
+      </li>
+      <li>
+        <p class="font-semibold">Messagetimestamp:</p>
+        <p><%= @message.messageTimestamp %></p>
+      </li>
+  </ul>
+</div>

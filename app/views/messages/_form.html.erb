@@ -1,0 +1,42 @@
+<%= form_with(model: message) do |form| %>
+<% if message.errors.any? %>
+<div id="error_explanation" class="bg-red-50 p-6 rounded text-red-800">
+  <h2 class="text-lg font-semibold mb-3"><%= pluralize(message.errors.count, "error") %> prohibited this message from being saved:</h2>
+
+  <ul class="list-disc leading-relaxed">
+    <% message.errors.full_messages.each do |message| %>
+    <li><%= message %></li>
+    <% end %>
+  </ul>
+</div>
+<% end %>
+
+  <div class="mb-6">
+        <%= form.label :matchID, class: label_class %>
+          <%= form.number_field :matchID, class: input_class %>
+      </div>
+  <div class="mb-6">
+        <%= form.label :senderID, class: label_class %>
+          <%= form.number_field :senderID, class: input_class %>
+      </div>
+  <div class="mb-6">
+        <%= form.label :receiverID, class: label_class %>
+          <%= form.number_field :receiverID, class: input_class %>
+      </div>
+  <div class="mb-6">
+        <%= form.label :messageText, class: label_class %>
+          <%= form.text_area :messageText, class: input_class %>
+      </div>
+  <div class="mb-6">
+        <%= form.label :messageTimestamp, class: label_class %>
+          <%= form.datetime_field :messageTimestamp, class: input_class %>
+      </div>
+
+<%= form.submit class: button_class(theme: 'primary') %>
+
+<% if message.persisted? %>
+<%= link_to "Cancel", message, class: "text-neutral-700 underline inline-block ml-3" %>
+<% else %>
+<%= link_to "Cancel", messages_path, class:  "text-neutral-700 underline inline-block ml-3" %>
+<% end %>
+<% end %>

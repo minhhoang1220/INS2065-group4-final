@@ -1,0 +1,53 @@
+<div class="max-w-3xl mx-auto px-4">
+  <div class="flex items-center justify-between">
+    <h1 class="flex-1 font-bold text-3xl">Usertable</h1>
+
+    <div class="flex-wrap lg:flex items-center lg:space-x-3">
+      <%= link_to usertables_path, class: button_class(theme: "transparent") do %>
+      All Usertables
+      <% end %>
+      <%= link_to edit_usertable_path(@usertable), class: button_class(theme:"primary") do %>
+      Edit
+      <% end %>
+    </div>
+  </div>
+
+  <ul class="text-slate-700">
+      <li>
+        <p class="font-semibold">Typemem:</p>
+        <p><%= @usertable.TypeMem %></p>
+      </li>
+      <li>
+        <p class="font-semibold">Name:</p>
+        <p><%= @usertable.name %></p>
+      </li>
+      <li>
+        <p class="font-semibold">Email:</p>
+        <p><%= @usertable.email %></p>
+      </li>
+      <li>
+        <p class="font-semibold">Password:</p>
+        <p><%= @usertable.password %></p>
+      </li>
+      <li>
+        <p class="font-semibold">Active:</p>
+        <p><%= @usertable.active %></p>
+      </li>
+      <li>
+        <p class="font-semibold">Age:</p>
+        <p><%= @usertable.age %></p>
+      </li>
+      <li>
+        <p class="font-semibold">Gender:</p>
+        <p><%= @usertable.gender %></p>
+      </li>
+      <li>
+        <p class="font-semibold">Image:</p>
+        <p><%= @usertable.image %></p>
+      </li>
+      <li>
+        <p class="font-semibold">Bio:</p>
+        <p><%= @usertable.bio %></p>
+      </li>
+  </ul>
+</div>
