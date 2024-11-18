@@ -1,11 +1,11 @@
 # README
 
-## GROUP <add-group-name>
+## GROUP 4 - TOPIC:
 
-- Member 1: <add-name>
-- Member 2: <add-name>
-- Member 3: <add-name>
-- Member 4: <add-name>
+- Member 1: Nguyen Duc Minh Hoang
+- Member 2: Phan Thai Binh
+- Member 3: Do Quynh Chi
+- Member 4: Dang Quynh Anh
 
 ## Starting server
 
