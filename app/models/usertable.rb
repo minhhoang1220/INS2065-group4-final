@@ -12,5 +12,4 @@ class Usertable < ApplicationRecord
     validates_length_of :password, minimum: 8
     validates_format_of :email, with: URI::MailTo::EMAIL_REGEXP
 
-    
 end
