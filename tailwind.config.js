@@ -1,8 +1,8 @@
 module.exports = {
   content: [
-    './app/views/**/*.html.erb',
+    './app/views/**/*.{html,erb}',
     './app/helpers/**/*.rb',
-    './app/javascript/**/*.{js, jsx, vue}'
+    './app/javascript/**/*.{js,jsx,ts,tsx,vue}'
   ],
   theme: {
     extend: {},

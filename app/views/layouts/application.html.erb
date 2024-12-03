@@ -7,10 +7,13 @@
     <header>
       <%= render "shared/flash_notice" %>
       <%= render "shared/navbar" %>
+      <%= stylesheet_link_tag "application", "data-turbo-track": "reload" %>
     </header>
 
     <main class="flex-grow">
       <%= content_for?(:content) ? yield(:content) : yield %>
     </main>
+
+    <%= javascript_include_tag 'application', 'data-turbolinks-track': 'reload' %>
   </body>
 </html>
