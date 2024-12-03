@@ -13,41 +13,47 @@
   </div>
 
   <ul class="text-slate-700">
-      <li>
-        <p class="font-semibold">Typemem:</p>
-        <p><%= @usertable.TypeMem %></p>
-      </li>
-      <li>
-        <p class="font-semibold">Name:</p>
-        <p><%= @usertable.name %></p>
-      </li>
-      <li>
-        <p class="font-semibold">Email:</p>
-        <p><%= @usertable.email %></p>
-      </li>
-      <li>
-        <p class="font-semibold">Password:</p>
-        <p><%= @usertable.password %></p>
-      </li>
-      <li>
-        <p class="font-semibold">Active:</p>
-        <p><%= @usertable.active %></p>
-      </li>
-      <li>
-        <p class="font-semibold">Age:</p>
-        <p><%= @usertable.age %></p>
-      </li>
-      <li>
-        <p class="font-semibold">Gender:</p>
-        <p><%= @usertable.gender %></p>
-      </li>
-      <li>
-        <p class="font-semibold">Image:</p>
-        <p><%= @usertable.image %></p>
-      </li>
-      <li>
-        <p class="font-semibold">Bio:</p>
-        <p><%= @usertable.bio %></p>
-      </li>
+    <li>
+      <p class="font-semibold">Typemem:</p>
+      <p><%= @usertable.TypeMem || "N/A" %></p>
+    </li>
+    <li>
+      <p class="font-semibold">Name:</p>
+      <p><%= @usertable.name || "N/A" %></p>
+    </li>
+    <li>
+      <p class="font-semibold">Email:</p>
+      <p><%= @usertable.email || "N/A" %></p>
+    </li>
+    <li>
+      <p class="font-semibold">Password:</p>
+      <p>****</p>
+    </li>
+    <li>
+      <p class="font-semibold">Active:</p>
+      <p><%= @usertable.active ? "Active" : "Inactive" %></p>
+    </li>
+    <li>
+      <p class="font-semibold">Age:</p>
+      <p><%= @usertable.age || "N/A" %></p>
+    </li>
+    <li>
+      <p class="font-semibold">Gender:</p>
+      <p><%= @usertable.gender.presence || "N/A" %></p>
+    </li>
+    <li>
+      <p class="font-semibold">Image:</p>
+      <p>
+        <% if @usertable.image.attached? %>
+          <%= image_tag(@usertable.image, alt: @usertable.name, class: "h-20 w-20") %>
+        <% else %>
+          <span>No Image</span>
+        <% end %>
+      </p>
+    </li>
+    <li>
+      <p class="font-semibold">Bio:</p>
+      <p><%= @usertable.bio || "N/A" %></p>
+    </li>
   </ul>
 </div>

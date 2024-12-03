@@ -13,7 +13,7 @@
 
   <div class="mb-6">
         <%= form.label :TypeMem, class: label_class %>
-          <%= form.text_field :TypeMem, class: input_class %>
+          <%= form.select :typemem_id, options_from_collection_for_select(Membership.all, 'id', 'TypeMem'), { include_blank: 'Select Membership' }, class: label_class %>
       </div>
   <div class="mb-6">
         <%= form.label :name, class: label_class %>
@@ -25,11 +25,11 @@
       </div>
   <div class="mb-6">
         <%= form.label :password, class: label_class %>
-          <%= form.text_field :password, class: input_class %>
+          <%= form.password_field :password, class: input_class %>
       </div>
   <div class="mb-6">
         <%= form.label :active, class: label_class %>
-          <%= form.text_field :active, class: input_class %>
+           <%= form.select :active, [['Active', true], ['Inactive', false]], {}, class: input_class %>
       </div>
   <div class="mb-6">
         <%= form.label :age, class: label_class %>
@@ -37,11 +37,11 @@
       </div>
   <div class="mb-6">
         <%= form.label :gender, class: label_class %>
-          <%= form.text_field :gender, class: input_class %>
+          <%= form.select :gender, [['Male', 'male'], ['Female', 'female'], ['Other', 'other']], {}, class: input_class %>
       </div>
   <div class="mb-6">
-        <%= form.label :image, class: label_class %>
-          <%= form.text_field :image, class: input_class %>
+        <%= form.label :image, "Upload Image", class: label_class %>
+          <%= form.file_field :image, class: input_class %>
       </div>
   <div class="mb-6">
         <%= form.label :bio, class: label_class %>

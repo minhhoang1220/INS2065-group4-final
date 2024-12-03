@@ -2,3 +2,12 @@
 @tailwind components;
 @tailwind utilities;
 @import 'actiontext.css';
+
+.table {
+    @apply border-collapse border border-gray-300 w-full;
+  }
+  
+  .table-striped tbody tr:nth-child(odd) {
+    @apply bg-gray-100;
+  }
+  
