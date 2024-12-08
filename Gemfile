@@ -80,3 +80,5 @@ gem "dotenv-rails"
 
 gem 'rails_admin'
 gem 'activestorage'
+
+gem 'attach', '~> 1.0.1'
