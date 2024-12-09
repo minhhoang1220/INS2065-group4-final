@@ -13,4 +13,11 @@ class Usertable < ApplicationRecord
     validates_length_of :password, minimum: 8
     validates_format_of :email, with: URI::MailTo::EMAIL_REGEXP
 
+    def self.search(term)
+        if term
+          where('name LIKE ? OR email LIKE ?', "%#{term}%", "%#{term}%")
+        else
+          all
+        end
+      end
 end

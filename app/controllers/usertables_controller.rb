@@ -57,6 +57,10 @@ class UsertablesController < ApplicationController
     end
   end
 
+  def index
+    @usertables = Usertable.search(params[:term])
+  end  
+
   private
     # Use callbacks to share common setup or constraints between actions.
     def set_usertable
