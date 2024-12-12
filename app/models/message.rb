@@ -14,4 +14,11 @@ class Message < ApplicationRecord
         end
     end
 
+    def self.search(term)
+        if term
+          where('content LIKE ? OR sender_name LIKE ?', "%#{term}%", "%#{term}%")
+        else
+          all
+        end
+      end
 end

@@ -5,6 +5,17 @@
   <div class="flex items-center justify-between flex-wrap mb-6">
     <h1 class="text-3xl font-bold">Messages</h1>
 
+    <%= form_tag(messages_path, method: :get, class: "flex items-center gap-2") do %>
+      <%= text_field_tag :term, params[:term], placeholder: "Search messages", class: "border rounded p-2" %>
+      <%= submit_tag 'Search', class: button_class(theme: "secondary") %>
+    <% end %>
+    
+    <% @messages.each do |message| %>
+      <div class="message">
+        <strong><%= message.sender_name %></strong>: <%= message.content %>
+      </div>
+    <% end %>    
+
     <%= link_to new_message_path, class: button_class(theme: "primary") do %>
     Add New Message
     <% end %>

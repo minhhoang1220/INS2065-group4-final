@@ -5,6 +5,11 @@
   <div class="flex items-center justify-between flex-wrap mb-6">
     <h1 class="text-3xl font-bold">Matches</h1>
 
+    <%= form_tag(matches_path, method: :get, class: "flex items-center gap-2 mb-4") do %>
+      <%= text_field_tag :term, params[:term], placeholder: "Search matches", class: "border rounded p-2" %>
+      <%= submit_tag 'Search', class: button_class(theme: "secondary") %>
+    <% end %>
+
     <%= link_to new_match_path, class: button_class(theme: "primary") do %>
     Add New Match
     <% end %>

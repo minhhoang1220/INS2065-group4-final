@@ -10,4 +10,12 @@ class Match < ApplicationRecord
     def users_cannot_match_themselves
         errors.add(:User1ID, 'cannot match with themselves') if User1ID == User2ID
     end
+
+    def self.search(term)
+        if term
+          where('user1_name LIKE ? OR user2_name LIKE ?', "%#{term}%", "%#{term}%")
+        else
+          all
+        end
+      end
 end
