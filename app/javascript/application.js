@@ -3,3 +3,6 @@ import "@hotwired/turbo-rails"
 import "./controllers"
 import "trix"
 import "@rails/actiontext"
+
+//= require Chart.bundle
+//= require chartkick

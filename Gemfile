@@ -85,3 +85,4 @@ gem 'attach', '~> 1.0.1'
 gem 'rake', '~> 13.0', '>= 13.0.6'
 
 gem "chartkick"
+gem 'activeadmin'
