@@ -1,48 +1,61 @@
-
-
-
 <div class="container mx-auto px-4">
   <div class="flex items-center justify-between flex-wrap mb-6">
-    <h1 class="text-3xl font-bold">Matches</h1>
-
-    <%= form_tag(matches_path, method: :get, class: "flex items-center gap-2 mb-4") do %>
-      <%= text_field_tag :term, params[:term], placeholder: "Search matches", class: "border rounded p-2" %>
-      <%= submit_tag 'Search', class: button_class(theme: "secondary") %>
-    <% end %>
-
-    <%= link_to new_match_path, class: button_class(theme: "primary") do %>
-    Add New Match
-    <% end %>
+    <h1 class="text-3xl font-bold">Your Matches</h1>
   </div>
 
-  <table class="table-auto border-collapse border-slate-400 w-full">
-    <thead class="bg-slate-50 dark:bg-slate-700">
-      <tr>
-        
-                  <th class="border border-slate-300 dark:border-slate-600 font-semibold p-4 text-slate-900 dark:text-slate-200 text-left">User1id</th>
-                  <th class="border border-slate-300 dark:border-slate-600 font-semibold p-4 text-slate-900 dark:text-slate-200 text-left">User2id</th>
-                  <th class="border border-slate-300 dark:border-slate-600 font-semibold p-4 text-slate-900 dark:text-slate-200 text-left">Matchtimestamp</th>
-                
-          <th class="border border-slate-300 dark:border-slate-600 font-semibold p-4 text-slate-900 dark:text-slate-200 text-left"></th>
-        
-      </tr>
-    </thead>
-
-    <tbody>
-      <% @matches.each do |match| %>
-      <%= content_tag :tr, id: dom_id(match), class: dom_class(match) do %>
-      
-
-              <td class="border border-slate-300 dark:border-slate-700 p-4 text-slate-500 dark:text-slate-400"><%= match.User1ID.name %></td>
-              <td class="border border-slate-300 dark:border-slate-700 p-4 text-slate-500 dark:text-slate-400"><%= match.User2ID.name %></td>
-              <td class="border border-slate-300 dark:border-slate-700 p-4 text-slate-500 dark:text-slate-400"><%= match.MatchTimestamp %></td>
-      
-      
-        <td class="border border-slate-300 dark:border-slate-700 p-4 text-slate-500 dark:text-slate-400"><%= link_to 'Show', match %></td>
-      
+  <% if @matched_profiles.any? %>
+    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
+      <% @matched_profiles.each do |profile| %>
+        <div class="profile-card border p-4 rounded shadow-lg">
+          <% if profile.image.attached? %>
+            <div class="image-container mb-4">
+              <%= image_tag(profile.image, alt: profile.name, class: "image-4-3 rounded") %>
+            </div>
+          <% else %>
+            <p>No Image</p>
+          <% end %>
+          <h2 class="text-xl font-bold"><%= profile.name %>, <%= profile.age %></h2>
+          <p class="text-gray-600"><%= profile.bio || "No bio available" %></p>
+          <%= link_to "Start Chat", messages_path(receiver_id: profile.id), class: "btn btn-primary mt-4" %>
+        </div>
       <% end %>
-      <% end %>
-    </tbody>
-  </table>
+    </div>
+  <% else %>
+    <div class="text-center py-8">
+      <p class="text-gray-600">No matches yet. Keep swiping to find your match!</p>
+    </div>
+  <% end %>
 </div>
-</div>
+
+<style>
+  .profile-card {
+    max-width: 400px;
+    text-align: center;
+    background-color: white;
+  }
+
+  .image-container {
+    width: 100%;
+    overflow: hidden;
+    position: relative;
+    padding-top: 75%;
+  }
+
+  .image-4-3 {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+  }
+
+  .btn-primary {
+    background-color: #ff4081;
+    color: white;
+    padding: 0.5rem 1rem;
+    border-radius: 0.25rem;
+    text-decoration: none;
+    display: inline-block;
+  }
+</style>

@@ -94,10 +94,22 @@ class SwipesController < ApplicationController
 
     def check_for_match(swipe)
       # Kiểm tra nếu người dùng được "like" đã "like" lại người dùng hiện tại
-      reciprocal_swipe = Swipe.find_by(SwiperUserID: swipe.SwipedUserID, SwipedUserID: swipe.SwiperUserID, SwipeType: 'like')
+      reciprocal_swipe = Swipe.find_by(
+        SwiperUserID: swipe.SwipedUserID,
+        SwipedUserID: swipe.SwiperUserID,
+        SwipeType: 'like'
+      )
       
       if reciprocal_swipe
-        Match.create(User1ID: swipe.SwiperUserID, User2ID: swipe.SwipedUserID, MatchTimestamp: Time.current)
+        begin
+          Match.create!(
+            User1ID: swipe.SwiperUserID,
+            User2ID: swipe.SwipedUserID,
+            MatchTimestamp: Time.current
+          )
+        rescue ActiveRecord::RecordInvalid => e
+          Rails.logger.error "Failed to create match: #{e.message}"
+        end
       end
     end
 end

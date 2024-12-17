@@ -3,11 +3,22 @@ class MatchesController < ApplicationController
 
   # GET /matches or /matches.json
   def index
-    @matches = Match.all
+    if current_user.usertable.present?
+      if params[:term]
+        @matches = Match.search(params[:term])
+      else
+        @matches = Match.get_user_matches(current_user.usertable.id)
+      end
+      @matched_profiles = @matches.map { |match| match.get_other_profile(current_user.usertable.id) }
+    else
+      redirect_to new_usertable_path, alert: "Please create a profile first."
+    end
+    @matched_profiles ||= []
   end
 
   # GET /matches/1 or /matches/1.json
   def show
+    @other_profile = @match.get_other_profile(current_user.usertable.id)
   end
 
   # GET /matches/new
@@ -57,10 +68,6 @@ class MatchesController < ApplicationController
     end
   end
 
-  def index
-    @matches = Match.search(params[:term])
-  end
-  
   private
     # Use callbacks to share common setup or constraints between actions.
     def set_match
