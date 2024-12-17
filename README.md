@@ -1,6 +1,6 @@
 # README
 
-## GROUP 4 - TOPIC:
+## GROUP 4 - TOPIC: Dating App
 
 - Member 1: Nguyen Duc Minh Hoang
 - Member 2: Phan Thai Binh
