@@ -5,6 +5,7 @@ class Usertable < ApplicationRecord
     has_many :sent_messages, class_name: 'Messages'
     has_many :received_messages, class_name: 'Messages'
     has_one_attached :image
+    belongs_to :membership, optional: true
 
     validates_presence_of :name, :email, :password, :active, :age, :gender
     validates_uniqueness_of :email

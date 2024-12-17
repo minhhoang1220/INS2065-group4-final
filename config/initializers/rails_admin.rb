@@ -40,4 +40,13 @@ RailsAdmin.config do |config|
     # history_index
     # history_show
   end
+  
+  config.model 'Usertable' do
+    list do
+      field :name
+      field :email
+      field :membership
+      # other fields
+    end
+  end
 end
