@@ -8,7 +8,6 @@ Rails.application.routes.draw do
   resources :swipes
   resources :usertables
   resources :memberships
-  resources :profiles
 
   authenticate :user, ->(u) { u.admin? } do
     mount Sidekiq::Web => '/sidekiq'
