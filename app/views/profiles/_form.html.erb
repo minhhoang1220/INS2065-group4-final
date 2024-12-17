@@ -1,0 +1,42 @@
+<%= form_with(model: profile) do |form| %>
+<% if profile.errors.any? %>
+<div id="error_explanation" class="bg-red-50 p-6 rounded text-red-800">
+  <h2 class="text-lg font-semibold mb-3"><%= pluralize(profile.errors.count, "error") %> prohibited this profile from being saved:</h2>
+
+  <ul class="list-disc leading-relaxed">
+    <% profile.errors.full_messages.each do |message| %>
+    <li><%= message %></li>
+    <% end %>
+  </ul>
+</div>
+<% end %>
+
+  <div class="mb-6">
+        <%= form.label :user_id, class: label_class %>
+          <%= form.text_field :user_id, class: input_class %>
+      </div>
+  <div class="mb-6">
+        <%= form.label :first_name, class: label_class %>
+          <%= form.text_field :first_name, class: input_class %>
+      </div>
+  <div class="mb-6">
+        <%= form.label :last_name, class: label_class %>
+          <%= form.text_field :last_name, class: input_class %>
+      </div>
+  <div class="mb-6">
+        <%= form.label :bio, class: label_class %>
+          <%= form.text_area :bio, class: input_class %>
+      </div>
+  <div class="mb-6">
+        <%= form.label :phone, class: label_class %>
+          <%= form.text_field :phone, class: input_class %>
+      </div>
+
+<%= form.submit class: button_class(theme: 'primary') %>
+
+<% if profile.persisted? %>
+<%= link_to "Cancel", profile, class: "text-neutral-700 underline inline-block ml-3" %>
+<% else %>
+<%= link_to "Cancel", profiles_path, class:  "text-neutral-700 underline inline-block ml-3" %>
+<% end %>
+<% end %>
