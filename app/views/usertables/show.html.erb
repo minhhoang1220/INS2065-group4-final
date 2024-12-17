@@ -1,10 +1,10 @@
 <div class="max-w-3xl mx-auto px-4">
   <div class="flex items-center justify-between">
-    <h1 class="flex-1 font-bold text-3xl">Usertable</h1>
+    <h1 class="flex-1 font-bold text-3xl">Profile Details</h1>
 
     <div class="flex-wrap lg:flex items-center lg:space-x-3">
       <%= link_to usertables_path, class: button_class(theme: "transparent") do %>
-      All Usertables
+      All Profiles
       <% end %>
       <%= link_to edit_usertable_path(@usertable), class: button_class(theme:"primary") do %>
       Edit
@@ -26,10 +26,6 @@
       <p><%= @usertable.email || "N/A" %></p>
     </li>
     <li>
-      <p class="font-semibold">Password:</p>
-      <p>****</p>
-    </li>
-    <li>
       <p class="font-semibold">Active:</p>
       <p><%= @usertable.active ? "Active" : "Inactive" %></p>
     </li>
@@ -39,13 +35,15 @@
     </li>
     <li>
       <p class="font-semibold">Gender:</p>
-      <p><%= @usertable.gender.presence || "N/A" %></p>
+      <p><%= @usertable.gender&.capitalize || "N/A" %></p>
     </li>
     <li>
       <p class="font-semibold">Image:</p>
       <p>
         <% if @usertable.image.attached? %>
-          <%= image_tag(@usertable.image, alt: @usertable.name, class: "h-20 w-20") %>
+          <div class="image-container">
+            <%= image_tag(@usertable.image, alt: @usertable.name, class: "image-4-3") %>
+          </div>
         <% else %>
           <span>No Image</span>
         <% end %>
@@ -57,3 +55,22 @@
     </li>
   </ul>
 </div>
+
+<style>
+  .image-container {
+    width: 100%;
+    max-width: 300px; /* Adjust as needed */
+    overflow: hidden;
+    position: relative;
+    padding-top: 75%; /* 4:3 Aspect Ratio */
+  }
+
+  .image-4-3 {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+  }
+</style>

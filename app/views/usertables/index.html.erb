@@ -1,64 +1,70 @@
-
-
-
 <div class="container mx-auto px-4">
   <div class="flex items-center justify-between flex-wrap mb-6">
-    <h1 class="text-3xl font-bold">Usertables</h1>
+    <h1 class="text-3xl font-bold">Profile</h1>
 
-    <%= form_tag(usertables_path, method: :get, class: "flex items-center gap-2") do %>
-      <%= text_field_tag :term, params[:term], placeholder: "Search by name or email", class: "border rounded p-2" %>
-      <%= submit_tag 'Search', class: button_class(theme: "secondary") %>
-    <% end %>
-
-    <%= link_to new_usertable_path, class: button_class(theme: "primary") do %>
-    Add New Usertable
+    <% if current_user.usertable.present? %>
+      <%= link_to edit_usertable_path(current_user.usertable), class: button_class(theme: "primary") do %>
+        Edit Profile
+      <% end %>
+    <% else %>
+      <%= link_to new_usertable_path, class: button_class(theme: "primary") do %>
+        Add New Profile
+      <% end %>
     <% end %>
   </div>
 
   <table class="table-auto border-collapse border-slate-400 w-full">
     <thead class="bg-slate-50 dark:bg-slate-700">
       <tr>
-        
-          <th class="border border-slate-300 dark:border-slate-600 font-semibold p-4 text-slate-900 dark:text-slate-200 text-left">Name</th>
-        
-                  <th class="border border-slate-300 dark:border-slate-600 font-semibold p-4 text-slate-900 dark:text-slate-200 text-left">Typemem</th>
-                  <th class="border border-slate-300 dark:border-slate-600 font-semibold p-4 text-slate-900 dark:text-slate-200 text-left">Email</th>
-                  <th class="border border-slate-300 dark:border-slate-600 font-semibold p-4 text-slate-900 dark:text-slate-200 text-left">Password</th>
-                  <th class="border border-slate-300 dark:border-slate-600 font-semibold p-4 text-slate-900 dark:text-slate-200 text-left">Active</th>
-                  <th class="border border-slate-300 dark:border-slate-600 font-semibold p-4 text-slate-900 dark:text-slate-200 text-left">Age</th>
-                  <th class="border border-slate-300 dark:border-slate-600 font-semibold p-4 text-slate-900 dark:text-slate-200 text-left">Gender</th>
-                  <th class="border border-slate-300 dark:border-slate-600 font-semibold p-4 text-slate-900 dark:text-slate-200 text-left">Image</th>
-                  <th class="border border-slate-300 dark:border-slate-600 font-semibold p-4 text-slate-900 dark:text-slate-200 text-left">Bio</th>
-                
+        <th class="border border-slate-300 dark:border-slate-600 font-semibold p-4 text-slate-900 dark:text-slate-200 text-left">Name</th>
+        <th class="border border-slate-300 dark:border-slate-600 font-semibold p-4 text-slate-900 dark:text-slate-200 text-left">Typemem</th>
+        <th class="border border-slate-300 dark:border-slate-600 font-semibold p-4 text-slate-900 dark:text-slate-200 text-left">Active</th>
+        <th class="border border-slate-300 dark:border-slate-600 font-semibold p-4 text-slate-900 dark:text-slate-200 text-left">Age</th>
+        <th class="border border-slate-300 dark:border-slate-600 font-semibold p-4 text-slate-900 dark:text-slate-200 text-left">Gender</th>
+        <th class="border border-slate-300 dark:border-slate-600 font-semibold p-4 text-slate-900 dark:text-slate-200 text-left">Image</th>
+        <th class="border border-slate-300 dark:border-slate-600 font-semibold p-4 text-slate-900 dark:text-slate-200 text-left">Bio</th>
       </tr>
     </thead>
 
     <tbody>
       <% @usertables.each do |usertable| %>
-      <%= content_tag :tr, id: dom_id(usertable), class: dom_class(usertable) do %>
-      
-        <td class="border border-slate-300 dark:border-slate-700 p-4 text-slate-500 dark:text-slate-400"><%= link_to usertable.name, usertable %></td>
-      
-
-              <td class="border border-slate-300 dark:border-slate-700 p-4 text-slate-500 dark:text-slate-400"><%= usertable.TypeMem || "N/A" %> </td>
-              <td class="border border-slate-300 dark:border-slate-700 p-4 text-slate-500 dark:text-slate-400"><%= usertable.email %></td>
-              <td class="border border-slate-300 dark:border-slate-700 p-4 text-slate-500 dark:text-slate-400">****</td>
-              <td class="border border-slate-300 dark:border-slate-700 p-4 text-slate-500 dark:text-slate-400"><%= usertable.active ? "Active" : "Inactive" %></td>
-              <td class="border border-slate-300 dark:border-slate-700 p-4 text-slate-500 dark:text-slate-400"><%= usertable.age || "N/A" %></td>
-              <td class="border border-slate-300 dark:border-slate-700 p-4 text-slate-500 dark:text-slate-400"><%= usertable.gender.presence || "N/A" %></td>
-              <td class="border border-slate-300 dark:border-slate-700 p-4 text-slate-500 dark:text-slate-400">
-                <% if usertable.image.attached? %>
-                  <%= image_tag(usertable.image, alt: usertable.name, class: "h-10 w-10") %>
-                <% else %>
-                  <span>No Image</span>
-                <% end %>
-              </td>
-              <td class="border border-slate-300 dark:border-slate-700 p-4 text-slate-500 dark:text-slate-400"><%= usertable.bio %></td>
-      
-      
-      <% end %>
+        <%= content_tag :tr, id: dom_id(usertable), class: dom_class(usertable) do %>
+          <td class="border border-slate-300 dark:border-slate-700 p-4 text-slate-500 dark:text-slate-400"><%= link_to usertable.name, usertable %></td>
+          <td class="border border-slate-300 dark:border-slate-700 p-4 text-slate-500 dark:text-slate-400"><%= usertable.TypeMem || "N/A" %> </td>
+          <td class="border border-slate-300 dark:border-slate-700 p-4 text-slate-500 dark:text-slate-400"><%= usertable.active ? "Active" : "Inactive" %></td>
+          <td class="border border-slate-300 dark:border-slate-700 p-4 text-slate-500 dark:text-slate-400"><%= usertable.age || "N/A" %></td>
+          <td class="border border-slate-300 dark:border-slate-700 p-4 text-slate-500 dark:text-slate-400"><%= usertable.gender&.capitalize || "N/A" %></td>
+          <td class="border border-slate-300 dark:border-slate-700 p-4 text-slate-500 dark:text-slate-400">
+            <% if usertable.image.attached? %>
+              <div class="image-container">
+                <%= image_tag(usertable.image, alt: usertable.name, class: "image-4-3") %>
+              </div>
+            <% else %>
+              <span>No Image</span>
+            <% end %>
+          </td>
+          <td class="border border-slate-300 dark:border-slate-700 p-4 text-slate-500 dark:text-slate-400"><%= usertable.bio %></td>
+        <% end %>
       <% end %>
     </tbody>
   </table>
 </div>
-</div>
+
+<style>
+  .image-container {
+    width: 100%;
+    max-width: 100px; /* Adjust as needed */
+    overflow: hidden;
+    position: relative;
+    padding-top: 75%; /* 4:3 Aspect Ratio */
+  }
+
+  .image-4-3 {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+  }
+</style>

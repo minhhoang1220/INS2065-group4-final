@@ -1,5 +1,5 @@
 class Usertable < ApplicationRecord
-    belongs_to :memberships, optional: true
+    belongs_to :user
     has_many :swipes
     has_many :matches
     has_many :sent_messages, class_name: 'Messages'
@@ -10,14 +10,4 @@ class Usertable < ApplicationRecord
     validates_uniqueness_of :email
     validates_numericality_of :age, only_integer: true, greater_than_or_equal_to: 18, less_than_or_equal_to: 100
     validates_inclusion_of :gender, in: %w[male female other]
-    validates_length_of :password, minimum: 8
-    validates_format_of :email, with: URI::MailTo::EMAIL_REGEXP
-
-    def self.search(term)
-        if term
-          where('name LIKE ? OR email LIKE ?', "%#{term}%", "%#{term}%")
-        else
-          all
-        end
-      end
 end
