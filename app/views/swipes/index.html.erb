@@ -1,45 +1,77 @@
-
-
-
 <div class="container mx-auto px-4">
-  <div class="flex items-center justify-between flex-wrap mb-6">
-    <h1 class="text-3xl font-bold">Swipes</h1>
-
-    <%= link_to new_swipe_path, class: button_class(theme: "primary") do %>
-    Add New Swipe
-    <% end %>
+  <div class="flex items-center justify-center mb-6">
+    <h1 class="text-3xl font-bold">Swiping</h1>
   </div>
 
-  <table class="table-auto border-collapse border-slate-400 w-full">
-    <thead class="bg-slate-50 dark:bg-slate-700">
-      <tr>
-        
-                  <th class="border border-slate-300 dark:border-slate-600 font-semibold p-4 text-slate-900 dark:text-slate-200 text-left">Swiperuserid</th>
-                  <th class="border border-slate-300 dark:border-slate-600 font-semibold p-4 text-slate-900 dark:text-slate-200 text-left">Swipeduserid</th>
-                  <th class="border border-slate-300 dark:border-slate-600 font-semibold p-4 text-slate-900 dark:text-slate-200 text-left">Swipetype</th>
-                  <th class="border border-slate-300 dark:border-slate-600 font-semibold p-4 text-slate-900 dark:text-slate-200 text-left">Swipetimestamp</th>
-                
-          <th class="border border-slate-300 dark:border-slate-600 font-semibold p-4 text-slate-900 dark:text-slate-200 text-left"></th>
-        
-      </tr>
-    </thead>
-
-    <tbody>
-      <% @swipes.each do |swipe| %>
-      <%= content_tag :tr, id: dom_id(swipe), class: dom_class(swipe) do %>
-      
-
-              <td class="border border-slate-300 dark:border-slate-700 p-4 text-slate-500 dark:text-slate-400"><%= swipe.SwiperUserID.name %></td>
-              <td class="border border-slate-300 dark:border-slate-700 p-4 text-slate-500 dark:text-slate-400"><%= swipe.SwipedUserID.name %></td>
-              <td class="border border-slate-300 dark:border-slate-700 p-4 text-slate-500 dark:text-slate-400"><%= swipe.SwipeType %></td>
-              <td class="border border-slate-300 dark:border-slate-700 p-4 text-slate-500 dark:text-slate-400"><%= swipe.SwipeTimestamp %></td>
-      
-      
-        <td class="border border-slate-300 dark:border-slate-700 p-4 text-slate-500 dark:text-slate-400"><%= link_to 'Show', swipe %></td>
-      
-      <% end %>
-      <% end %>
-    </tbody>
-  </table>
+  <div class="flex justify-center">
+    <% if @random_profile %>
+      <div class="profile-card border p-4 rounded shadow-lg">
+        <% if @random_profile.image.attached? %>
+          <div class="image-container mb-4">
+            <%= image_tag(@random_profile.image, alt: @random_profile.name, class: "image-4-3 rounded") %>
+          </div>
+        <% else %>
+          <p>No Image</p>
+        <% end %>
+        <h2 class="text-xl font-bold"><%= @random_profile.name %>, <%= @random_profile.age %></h2>
+        <p class="text-gray-600"><%= @random_profile.bio || "No bio available" %></p>
+        <div class="flex justify-around mt-4">
+          <%= form_with url: like_or_dislike_swipes_path, method: :post, local: true do |form| %>
+            <%= form.hidden_field 'swipe[SwipedUserID]', value: @random_profile.id %>
+            <%= form.hidden_field 'swipe[SwipeType]', value: 'like' %>
+            <%= form.submit '❤️', class: 'btn btn-like' %>
+          <% end %>
+          <%= form_with url: like_or_dislike_swipes_path, method: :post, local: true do |form| %>
+            <%= form.hidden_field 'swipe[SwipedUserID]', value: @random_profile.id %>
+            <%= form.hidden_field 'swipe[SwipeType]', value: 'dislike' %>
+            <%= form.submit '❌', class: 'btn btn-dislike' %>
+          <% end %>
+        </div>
+      </div>
+    <% else %>
+      <p>No profiles available</p>
+    <% end %>
+  </div>
 </div>
-</div>
+
+<style>
+  .profile-card {
+    max-width: 400px;
+    text-align: center;
+    background-color: white;
+  }
+
+  .image-container {
+    width: 100%;
+    overflow: hidden;
+    position: relative;
+    padding-top: 75%; /* 4:3 Aspect Ratio */
+  }
+
+  .image-4-3 {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+  }
+
+  .btn {
+    padding: 10px 20px;
+    border: none;
+    border-radius: 50%;
+    font-size: 1.5rem;
+    cursor: pointer;
+  }
+
+  .btn-like {
+    background-color: #ff4081;
+    color: white;
+  }
+
+  .btn-dislike {
+    background-color: #ccc;
+    color: white;
+  }
+</style>

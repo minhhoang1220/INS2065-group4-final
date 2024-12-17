@@ -13,6 +13,11 @@ Rails.application.routes.draw do
     mount Sidekiq::Web => '/sidekiq'
   end
 
+  resources :swipes do
+    collection do
+      post :like_or_dislike
+    end
+  end
 
   devise_for :users
   # Define your application routes per the DSL in https://guides.rubyonrails.org/routing.html
