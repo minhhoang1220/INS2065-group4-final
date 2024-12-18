@@ -1,27 +1,12 @@
-<div id="<%= dom_id message %>">
-  <p>
-    <strong>Matchid:</strong>
-    <%= message.matchID %>
-  </p>
-
-  <p>
-    <strong>Senderid:</strong>
-    <%= message.senderID %>
-  </p>
-
-  <p>
-    <strong>Receiverid:</strong>
-    <%= message.receiverID %>
-  </p>
-
-  <p>
-    <strong>Messagetext:</strong>
-    <%= message.messageText %>
-  </p>
-
-  <p>
-    <strong>Messagetimestamp:</strong>
-    <%= message.messageTimestamp %>
-  </p>
-
+<div class="flex flex-col w-full">
+  <div class="text-xs text-gray-500 mx-4 mb-1 <%= message.senderID == current_user.usertable.id ? 'text-right' : 'text-left' %>">
+    <%= message.messageTimestamp.strftime("%H:%M") %>
+  </div>
+  <div class="w-full px-4">
+    <div class="<%= message.senderID == current_user.usertable.id ? 'ml-auto' : 'mr-auto' %> max-w-[70%]">
+      <div class="<%= message.senderID == current_user.usertable.id ? 'bg-[#00B6FF] text-white' : 'bg-[#E9ECEF] text-black' %> rounded-[20px] px-4 py-2">
+        <%= message.messageText %>
+      </div>
+    </div>
+  </div>
 </div>

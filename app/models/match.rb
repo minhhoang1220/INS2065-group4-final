@@ -1,7 +1,7 @@
 class Match < ApplicationRecord
     belongs_to :user1, class_name: 'Usertable', foreign_key: 'User1ID'
     belongs_to :user2, class_name: 'Usertable', foreign_key: 'User2ID'
-    has_many :messages
+    has_many :messages, foreign_key: 'matchID'
 
     validates_presence_of :User1ID, :User2ID
     validates_uniqueness_of :User1ID, scope: :User2ID, message: 'Match already exists between these users'

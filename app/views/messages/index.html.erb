@@ -1,58 +1,65 @@
+<div class="max-w-3xl mx-auto px-4 pb-20">
+  <% if @match %>
+    <h1 class="font-bold text-3xl mb-6">Chat with <%= @other_user.name %></h1>
 
-
-
-<div class="container mx-auto px-4">
-  <div class="flex items-center justify-between flex-wrap mb-6">
-    <h1 class="text-3xl font-bold">Messages</h1>
-
-    <%= form_tag(messages_path, method: :get, class: "flex items-center gap-2") do %>
-      <%= text_field_tag :term, params[:term], placeholder: "Search messages", class: "border rounded p-2" %>
-      <%= submit_tag 'Search', class: button_class(theme: "secondary") %>
-    <% end %>
-    
-    <% @messages.each do |message| %>
-      <div class="message">
-        <strong><%= message.sender_name %></strong>: <%= message.content %>
-      </div>
-    <% end %>    
-
-    <%= link_to new_message_path, class: button_class(theme: "primary") do %>
-    Add New Message
-    <% end %>
-  </div>
-
-  <table class="table-auto border-collapse border-slate-400 w-full">
-    <thead class="bg-slate-50 dark:bg-slate-700">
-      <tr>
-        
-                  <th class="border border-slate-300 dark:border-slate-600 font-semibold p-4 text-slate-900 dark:text-slate-200 text-left">Matchid</th>
-                  <th class="border border-slate-300 dark:border-slate-600 font-semibold p-4 text-slate-900 dark:text-slate-200 text-left">Senderid</th>
-                  <th class="border border-slate-300 dark:border-slate-600 font-semibold p-4 text-slate-900 dark:text-slate-200 text-left">Receiverid</th>
-                  <th class="border border-slate-300 dark:border-slate-600 font-semibold p-4 text-slate-900 dark:text-slate-200 text-left">Messagetext</th>
-                  <th class="border border-slate-300 dark:border-slate-600 font-semibold p-4 text-slate-900 dark:text-slate-200 text-left">Messagetimestamp</th>
-                
-          <th class="border border-slate-300 dark:border-slate-600 font-semibold p-4 text-slate-900 dark:text-slate-200 text-left"></th>
-        
-      </tr>
-    </thead>
-
-    <tbody>
+    <div class="message-history mb-20 space-y-4" style="max-height: calc(100vh - 250px); overflow-y-auto;">
       <% @messages.each do |message| %>
-      <%= content_tag :tr, id: dom_id(message), class: dom_class(message) do %>
-      
+        <%= render 'message', message: message %>
+      <% end %>
+    </div>
 
-              <td class="border border-slate-300 dark:border-slate-700 p-4 text-slate-500 dark:text-slate-400"><%= message.matchID.name %></td>
-              <td class="border border-slate-300 dark:border-slate-700 p-4 text-slate-500 dark:text-slate-400"><%= message.senderID.name %></td>
-              <td class="border border-slate-300 dark:border-slate-700 p-4 text-slate-500 dark:text-slate-400"><%= message.receiverID.name %></td>
-              <td class="border border-slate-300 dark:border-slate-700 p-4 text-slate-500 dark:text-slate-400"><%= message.messageText %></td>
-              <td class="border border-slate-300 dark:border-slate-700 p-4 text-slate-500 dark:text-slate-400"><%= message.messageTimestamp %></td>
-      
-      
-        <td class="border border-slate-300 dark:border-slate-700 p-4 text-slate-500 dark:text-slate-400"><%= link_to 'Show', message %></td>
-      
+    <div class="fixed bottom-0 left-0 right-0 bg-white border-t p-4">
+      <div class="max-w-3xl mx-auto">
+        <%= form_with(model: [@match, Message.new], local: true, class: "relative") do |form| %>
+          <div class="flex items-center">
+            <%= form.text_area :messageText,
+                class: "w-full border rounded-full py-3 px-6 pr-16 focus:outline-none focus:border-[#00B6FF]",
+                placeholder: "Type a message...",
+                rows: 1,
+                onkeydown: "if(event.keyCode==13 && !event.shiftKey){event.preventDefault(); this.form.submit();}" %>
+            <div class="absolute right-0 flex items-center pr-3">
+              <button type="submit" class="text-[#00B6FF] hover:text-[#0095DB]">
+                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" class="w-7 h-7">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 19l9 2-9-18-9 18 9-2zm0 0v-8"/>
+                </svg>
+              </button>
+            </div>
+          </div>
+        <% end %>
+      </div>
+    </div>
+  <% else %>
+    <h1 class="font-bold text-3xl mb-6">Your Conversations</h1>
+    
+    <div class="matches-list space-y-4">
+      <% @matches.each do |match| %>
+        <% other_user = match.get_other_profile(current_user.usertable.id) %>
+        <%= link_to match_messages_path(match), class: "block" do %>
+          <div class="match-item p-4 border rounded-lg hover:bg-gray-50 transition-colors">
+            <div class="font-semibold"><%= other_user.name %></div>
+            <% last_message = match.messages.order(messageTimestamp: :desc).first %>
+            <% if last_message %>
+              <div class="text-sm text-gray-600 mt-1">
+                <%= truncate(last_message.messageText, length: 50) %>
+                <span class="text-xs text-gray-500">
+                  · <%= time_ago_in_words(last_message.messageTimestamp) %> ago
+                </span>
+              </div>
+            <% end %>
+          </div>
+        <% end %>
       <% end %>
-      <% end %>
-    </tbody>
-  </table>
+    </div>
+  <% end %>
 </div>
-</div>
+
+<% content_for :scripts do %>
+  <script>
+    document.addEventListener('DOMContentLoaded', function() {
+      const messageHistory = document.querySelector('.message-history');
+      if (messageHistory) {
+        messageHistory.scrollTop = messageHistory.scrollHeight;
+      }
+    });
+  </script>
+<% end %>

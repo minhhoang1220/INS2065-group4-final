@@ -24,4 +24,8 @@ Rails.application.routes.draw do
 
   # Defines the root path route ("/")
   root "usertables#index"
+
+  resources :matches do
+    resources :messages, only: [:index, :create]
+  end
 end

@@ -1,9 +1,23 @@
 class MessagesController < ApplicationController
-  before_action :set_message, only: %i[ show edit update destroy ]
+  before_action :set_match, only: %i[ index create ]
+  before_action :authenticate_user!
 
   # GET /messages or /messages.json
   def index
-    @messages = Message.all
+    if params[:match_id]
+      @match = Match.find(params[:match_id])
+      @messages = @match.messages
+                       .includes(:sender, :receiver)
+                       .order(:messageTimestamp)
+      @other_user = @match.get_other_profile(current_user.usertable.id)
+    else
+      if current_user.usertable.present?
+        @matches = Match.get_user_matches(current_user.usertable.id)
+        @matched_profiles = @matches.map { |match| match.get_other_profile(current_user.usertable.id) }
+      else
+        redirect_to new_usertable_path, alert: "Please create a profile first."
+      end
+    end
   end
 
   # GET /messages/1 or /messages/1.json
@@ -21,16 +35,16 @@ class MessagesController < ApplicationController
 
   # POST /messages or /messages.json
   def create
-    @message = Message.new(message_params)
+    @message = @match.messages.new(message_params.merge(
+      senderID: current_user.usertable.id,
+      receiverID: @match.get_other_profile(current_user.usertable.id).id,
+      messageTimestamp: Time.current
+    ))
 
-    respond_to do |format|
-      if @message.save
-        format.html { redirect_to message_url(@message), notice: "Message was successfully created." }
-        format.json { render :show, status: :created, location: @message }
-      else
-        format.html { render :new, status: :unprocessable_entity }
-        format.json { render json: @message.errors, status: :unprocessable_entity }
-      end
+    if @message.save
+      redirect_to match_messages_path(@match)
+    else
+      redirect_to match_messages_path(@match), alert: "Message could not be sent."
     end
   end
 
@@ -56,10 +70,6 @@ class MessagesController < ApplicationController
       format.json { head :no_content }
     end
   end
-
-  def index
-    @messages = Message.search(params[:term])
-  end
   
   private
     # Use callbacks to share common setup or constraints between actions.
@@ -69,6 +79,10 @@ class MessagesController < ApplicationController
 
     # Only allow a list of trusted parameters through.
     def message_params
-      params.require(:message).permit(:matchID, :senderID, :receiverID, :messageText, :messageTimestamp)
+      params.require(:message).permit(:messageText)
+    end
+
+    def set_match
+      @match = Match.find(params[:match_id]) if params[:match_id]
     end
 end
