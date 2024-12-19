@@ -5,6 +5,12 @@
   <body class="font-sans font-normal leading-normal flex flex-col min-h-screen bg-gray-100">
     <% show_sidebar = ['usertables', 'swipes', 'matches', 'memberships', 'messages'].include?(controller_name) && 
                       !['edit', 'new'].include?(action_name) %>
+    
+    <% show_topbar = !['sessions', 'registrations', 'passwords'].include?(controller_name) %>
+    
+    <% if show_topbar %>
+      <%= render "shared/topbar" %>
+    <% end %>
                       
     <div class="flex h-screen">
       <% if show_sidebar %>
@@ -18,7 +24,7 @@
           <%= render "shared/flash_notice" %>
         </header>
 
-        <main>
+        <main style="<%= show_topbar ? 'margin-top: 76px' : '' %>">
           <%= content_for?(:content) ? yield(:content) : yield %>
         </main>
       </div>

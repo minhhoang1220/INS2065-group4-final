@@ -1,23 +1,16 @@
 <div class="container mx-auto px-4">
-  <div class="flex items-center justify-between flex-wrap mb-6">
-    <h1 class="text-3xl font-bold">Profile</h1>
-
-    <% if current_user.usertable.present? %>
-      <%= link_to edit_usertable_path(current_user.usertable), class: button_class(theme: "primary") do %>
-        Edit Profile
-      <% end %>
-    <% else %>
-      <%= link_to new_usertable_path, class: button_class(theme: "primary") do %>
-        Add New Profile
-      <% end %>
-    <% end %>
-  </div>
-
   <div class="flex justify-center">
-    <div class="bg-pastel-blue shadow-md rounded-lg overflow-hidden" style="width: 1020.75px; height: 683.903px;">
+    <div class="bg-pastel-blue shadow-md rounded-lg overflow-hidden relative" style="width: 1020.75px; height: 683.903px;">
+      <% if current_user.usertable.present? %>
+        <%= link_to edit_usertable_path(current_user.usertable), 
+            style: "position: absolute; right: 10px; top: 10px; height: 35px; width: 35px; background-color: #FFC629; border-radius: 50%; display: flex; align-items: center; justify-content: center;" do %>
+          <i class="fas fa-edit" style="color: black; font-size: 14px;"></i>
+        <% end %>
+      <% end %>
+
       <div class="flex">
         <div style="width: 510.375px; height: 683.903px; overflow: hidden;">
-          <% if current_user.usertable.image.attached? %>
+          <% if current_user.usertable&.image&.attached? %>
             <%= image_tag(current_user.usertable.image, alt: current_user.usertable.name, style: "width: 100%; height: 100%; object-fit: cover; object-position: 100% 0;") %>
           <% else %>
             <div class="w-full h-full bg-gray-200 flex items-center justify-center">
@@ -26,10 +19,24 @@
           <% end %>
         </div>
         <div class="p-4" style="width: 510.375px; display: flex; flex-direction: column; justify-content: center;">
-          <h2 class="text-5xl font-bold capitalize" style="color: #454650; font-size: 40px; font-weight: 1000;"><%= current_user.usertable.name %>, <%= current_user.usertable.age || "N/A" %></h2>
-          <p class="text-lg font-semibold capitalize" style="color: #727484; font-size: 20px; font-weight: 500;"><%= current_user.usertable.gender&.capitalize || "N/A" %></p>
-          <p class="mt-2 text-lg text-gray-800 capitalize"><%= current_user.usertable.bio %></p>
-          <p class="mt-2 text-lg text-green-500 capitalize"><%= current_user.usertable.active ? "Active" : "Inactive" %></p>
+          <% if current_user.usertable.present? %>
+            <h2 class="text-5xl font-bold capitalize" style="color: #454650; font-size: 40px; font-weight: 1000;">
+              <%= current_user.usertable.name %>, <%= current_user.usertable.age || "N/A" %>
+            </h2>
+            <p class="text-lg font-semibold capitalize" style="color: #727484; font-size: 20px; font-weight: 500;">
+              <%= current_user.usertable.gender&.capitalize || "N/A" %>
+            </p>
+            <p class="mt-2 text-lg text-gray-800 capitalize"><%= current_user.usertable.bio %></p>
+            <p class="mt-2 text-lg text-green-500 capitalize"><%= current_user.usertable.active ? "Active" : "Inactive" %></p>
+          <% else %>
+            <div class="text-center">
+              <p class="text-xl text-gray-600">No profile information available</p>
+              <%= link_to new_usertable_path, 
+                  style: "position: absolute; right: 10px; top: 10px; height: 35px; width: 35px; background-color: #FFC629; border-radius: 50%; display: flex; align-items: center; justify-content: center;" do %>
+                <i class="fas fa-plus" style="color: black; font-size: 14px;"></i>
+              <% end %>
+            </div>
+          <% end %>
         </div>
       </div>
     </div>

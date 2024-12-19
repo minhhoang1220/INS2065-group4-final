@@ -1,78 +1,62 @@
 <div class="container mx-auto px-4">
-  <div class="flex items-center justify-center mb-6">
-    <h1 class="text-3xl font-bold">Swiping</h1>
-  </div>
-
   <div class="flex justify-center">
     <% if @random_profile %>
-      <div class="profile-card border p-4 rounded shadow-lg">
-        <% if @random_profile.image.attached? %>
-          <div class="image-container mb-4">
-            <%= image_tag(@random_profile.image, alt: @random_profile.name, class: "image-4-3 rounded") %>
+      <div class="bg-pastel-blue shadow-md rounded-lg overflow-hidden relative" style="width: 1020.75px; height: 683.903px;">
+        <div class="flex">
+          <div style="width: 510.375px; height: 683.903px; overflow: hidden;">
+            <% if @random_profile.image.attached? %>
+              <%= image_tag(@random_profile.image, alt: @random_profile.name, style: "width: 100%; height: 100%; object-fit: cover; object-position: 100% 0;") %>
+            <% else %>
+              <div class="w-full h-full bg-gray-200 flex items-center justify-center">
+                <span>No Image</span>
+              </div>
+            <% end %>
           </div>
-        <% else %>
-          <p>No Image</p>
-        <% end %>
-        <h2 class="text-xl font-bold"><%= @random_profile.name %>, <%= @random_profile.age %></h2>
-        <p class="text-gray-600"><%= @random_profile.bio || "No bio available" %></p>
-        <div class="flex justify-around mt-4">
-          <%= form_with url: like_or_dislike_swipes_path, method: :post, local: true do |form| %>
-            <%= form.hidden_field 'swipe[SwipedUserID]', value: @random_profile.id %>
-            <%= form.hidden_field 'swipe[SwipeType]', value: 'like' %>
-            <%= form.submit '❤️', class: 'btn btn-like' %>
-          <% end %>
-          <%= form_with url: like_or_dislike_swipes_path, method: :post, local: true do |form| %>
-            <%= form.hidden_field 'swipe[SwipedUserID]', value: @random_profile.id %>
-            <%= form.hidden_field 'swipe[SwipeType]', value: 'dislike' %>
-            <%= form.submit '❌', class: 'btn btn-dislike' %>
-          <% end %>
+
+          <div class="p-4" style="width: 510.375px; display: flex; flex-direction: column; justify-content: center;">
+            <h2 class="text-5xl font-bold capitalize" style="color: #454650; font-size: 40px; font-weight: 1000;">
+              <%= @random_profile.name %>, <%= @random_profile.age || "N/A" %>
+            </h2>
+            <p class="text-lg font-semibold capitalize" style="color: #727484; font-size: 20px; font-weight: 500;">
+              <%= @random_profile.gender&.capitalize || "N/A" %>
+            </p>
+            <p class="mt-2 text-lg text-gray-800 capitalize"><%= @random_profile.bio %></p>
+            <p class="mt-2 text-lg text-green-500 capitalize"><%= @random_profile.active ? "Active" : "Inactive" %></p>
+
+            <div class="flex justify-center space-x-4 mt-8">
+              <%= form_with(model: Swipe.new, url: like_or_dislike_swipes_path, local: true, class: "inline-block") do |f| %>
+                <%= f.hidden_field :SwipedUserID, value: @random_profile.id %>
+                
+                <div class="flex space-x-4">
+                  <%= f.button name: 'swipe[SwipeType]', value: 'dislike', class: "rounded-full p-4 bg-white hover:bg-gray-100 shadow-lg transition-all duration-200", style: "width: 60px; height: 60px;" do %>
+                    <i class="fas fa-times text-red-500 text-2xl"></i>
+                  <% end %>
+
+                  <%= f.button name: 'swipe[SwipeType]', value: 'like', class: "rounded-full p-4 bg-white hover:bg-gray-100 shadow-lg transition-all duration-200", style: "width: 60px; height: 60px;" do %>
+                    <i class="fas fa-heart text-green-500 text-2xl"></i>
+                  <% end %>
+                </div>
+              <% end %>
+            </div>
+          </div>
         </div>
       </div>
     <% else %>
-      <p>No profiles available</p>
+      <div class="bg-pastel-blue shadow-md rounded-lg overflow-hidden relative" style="width: 1020.75px; height: 683.903px;">
+        <div class="flex items-center justify-center h-full">
+          <div class="text-center">
+            <i class="fas fa-search text-gray-400 text-6xl mb-4"></i>
+            <h2 class="text-2xl font-bold text-gray-600">No more profiles to display</h2>
+            <p class="text-gray-500 mt-2">Check back later for new matches!</p>
+          </div>
+        </div>
+      </div>
     <% end %>
   </div>
 </div>
 
 <style>
-  .profile-card {
-    max-width: 400px;
-    text-align: center;
-    background-color: #1a1a1a;
-    color: white;
-  }
-
-  .image-container {
-    width: 100%;
-    overflow: hidden;
-    position: relative;
-    padding-top: 75%; /* 4:3 Aspect Ratio */
-  }
-
-  .image-4-3 {
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    object-fit: cover;
-  }
-
-  .btn {
-    padding: 10px 20px;
-    border: none;
-    border-radius: 50%;
-    font-size: 1.5rem;
-    cursor: pointer;
-  }
-
-  .btn-like {
-    background-color: #ff4081;
-    color: white;
-  }
-
-  .btn-dislike {
-    background-color: #ccc;
-    color: white;
+  .bg-pastel-blue {
+    background-color: #FFF7D8;
   }
 </style>
