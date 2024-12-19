@@ -5,12 +5,16 @@ module.exports = {
     './app/javascript/**/*.{js,jsx,ts,tsx,vue}'
   ],
   theme: {
-    extend: {},
+    extend: {
+      colors: {
+        'tinder-red': '#FD3A73',
+        'message-blue': '#00B6FF',
+        'message-gray': '#E9ECEF'
+      }
+    },
   },
   plugins: [
     require('@tailwindcss/forms'),
-    require('@tailwindcss/typography'),
-    require('@tailwindcss/aspect-ratio'),
-    require('@tailwindcss/line-clamp'),
+    require('@tailwindcss/aspect-ratio')
   ]
 }
