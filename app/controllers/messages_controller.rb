@@ -4,19 +4,21 @@ class MessagesController < ApplicationController
 
   # GET /messages or /messages.json
   def index
+    @matches = if params[:term]
+      Match.joins(:messages)
+           .where('"messages"."messageText" LIKE ?', "%#{params[:term]}%")
+           .where('"matches"."User1ID" = ? OR "matches"."User2ID" = ?', 
+                  current_user.usertable.id, current_user.usertable.id)
+           .distinct
+    else
+      Match.where('"matches"."User1ID" = ? OR "matches"."User2ID" = ?', 
+                  current_user.usertable.id, current_user.usertable.id)
+    end
+
     if params[:match_id]
       @match = Match.find(params[:match_id])
-      @messages = @match.messages
-                       .includes(:sender, :receiver)
-                       .order(:messageTimestamp)
+      @messages = @match.messages.includes(:sender, :receiver).order('"messages"."messageTimestamp" ASC')
       @other_user = @match.get_other_profile(current_user.usertable.id)
-    else
-      if current_user.usertable.present?
-        @matches = Match.get_user_matches(current_user.usertable.id)
-        @matched_profiles = @matches.map { |match| match.get_other_profile(current_user.usertable.id) }
-      else
-        redirect_to new_usertable_path, alert: "Please create a profile first."
-      end
     end
   end
 

@@ -9,7 +9,8 @@ class Usertable < ApplicationRecord
     has_one_attached :image
     belongs_to :membership, optional: true
 
-    validates_presence_of :name, :email, :password, :active, :age, :gender
+    validates_presence_of :name, :email, :age, :gender
+    validates :active, inclusion: { in: [true, false] }
     validates_uniqueness_of :email
     validates_numericality_of :age, only_integer: true, greater_than_or_equal_to: 18, less_than_or_equal_to: 100
     validates_inclusion_of :gender, in: %w[male female other]

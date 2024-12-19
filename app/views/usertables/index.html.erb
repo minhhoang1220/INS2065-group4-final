@@ -1,12 +1,10 @@
-<%= debug current_user.usertable.attributes if current_user.usertable.present? %>
-
 <div class="container mx-auto px-4" style="padding-top: 30px;">
   <div class="flex justify-center">
-    <div class="bg-pastel-blue shadow-md rounded-lg overflow-hidden relative" style="width: 1020.75px; height: 683.903px;">
+    <div class="gradient-background shadow-md rounded-lg overflow-hidden relative" style="width: 1020.75px; height: 683.903px;">
       <% if current_user.usertable.present? %>
         <%= link_to edit_usertable_path(current_user.usertable), 
-            style: "position: absolute; right: 10px; top: 10px; height: 35px; width: 35px; background-color: #FFC629; border-radius: 50%; display: flex; align-items: center; justify-content: center;" do %>
-          <i class="fas fa-edit" style="color: black; font-size: 14px;"></i>
+            style: "position: absolute; right: 10px; top: 10px; height: 40px; width: 40px; background-color: #000000; border-radius: 50%; display: flex; align-items: center; justify-content: center;" do %>
+          <i class="fas fa-edit" style="color: #ffffff; font-size: 14px;"></i>
         <% end %>
       <% end %>
 
@@ -22,22 +20,23 @@
         </div>
         <div class="p-4" style="width: 510.375px; display: flex; flex-direction: column; justify-content: center;">
           <% if current_user.usertable.present? %>
-            <h2 class="text-5xl font-bold capitalize" style="color: #454650; font-size: 40px; font-weight: 1000; padding-left: 20px;">
-              <%= current_user.usertable.name %>, <%= current_user.usertable.age || "N/A" %>
-            </h2>
-            <p class="text-lg font-semibold capitalize" style="color: #727484; font-size: 20px; font-weight: 500; padding-left: 20px;">
+            <div style="display: flex; align-items: center; gap: 8px; padding-left: 20px; margin-bottom: 2px;">
+              <h2 style="color: #201D43; font-size: 40px; font-weight: 1000; text-transform: capitalize; letter-spacing: 1px;">
+                <%= current_user.usertable.name %>, <%= current_user.usertable.age || "N/A" %>
+              </h2>
+              <span id="active-status-dot" style="<%= current_user.usertable.active ? 'background-color: #22c55e;' : 'background-color: #9ca3af;' %> width: 10px; height: 10px; margin-top: 8px; border-radius: 50%; display: inline-block; margin-left: 10px;"
+                    title="<%= current_user.usertable.active ? 'Active now' : 'Inactive' %>">
+              </span>
+            </div>
+            <p class="text-lg font-semibold capitalize" style="color: #201D43; font-size: 18px; font-weight: 600; padding-left: 20px; letter-spacing: 1px;">
               <%= current_user.usertable.gender&.capitalize || "N/A" %>
             </p>
-            <p class="mt-2 text-lg text-gray-800 capitalize" style="padding-left: 20px;"><%= current_user.usertable.bio %></p>
-            <p class="mt-2 text-lg capitalize" style="padding-left: 20px; display: flex; align-items: center;">
-              <span class="inline-block rounded-full <%= current_user.usertable.active ? 'bg-green-500' : 'bg-gray-400' %>" 
-                    style="width: 10px; height: 10px; margin-right: 8px;">
-              </span>
-              <%= current_user.usertable.active ? "Active" : "Inactive" %>
+            <p class="mt-2 text-lg capitalize" style="color: #201D43; padding-left: 20px;">
+              <%= current_user.usertable.bio %>
             </p>
           <% else %>
             <div class="text-center">
-              <p class="text-xl text-gray-600">No profile information available</p>
+              <p class="text-xl" style="color: #201D43;">No profile information available</p>
               <%= link_to new_usertable_path, 
                   style: "position: absolute; right: 10px; top: 10px; height: 35px; width: 35px; background-color: #FFC629; border-radius: 50%; display: flex; align-items: center; justify-content: center;" do %>
                 <i class="fas fa-plus" style="color: black; font-size: 14px;"></i>
@@ -51,7 +50,19 @@
 </div>
 
 <style>
-  .bg-pastel-blue {
-    background-color: #FFF7D8;
+  .gradient-background {
+    background: linear-gradient(135deg, 
+      #ff758c 0%,    /* Màu hồng đậm */
+      #FF7EB3 50%,   /* Màu hồng trung gian */
+      #ffc3a0 100%   /* Màu vàng cam */
+    );
+  }
+
+  #active-status-dot {
+    transition: background-color 0.2s ease;
+  }
+
+  #active-status-dot:hover {
+    cursor: default;
   }
 </style>
