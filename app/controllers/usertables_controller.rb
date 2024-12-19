@@ -27,7 +27,7 @@ class UsertablesController < ApplicationController
 
     respond_to do |format|
       if @usertable.save
-        format.html { redirect_to usertable_url(@usertable), notice: "Your profile was successfully created." }
+        format.html { redirect_to usertables_path, notice: "Your profile was successfully created." }
         format.json { render :show, status: :created, location: @usertable }
       else
         format.html { render :new, status: :unprocessable_entity }
@@ -40,7 +40,7 @@ class UsertablesController < ApplicationController
   def update
     respond_to do |format|
       if @usertable.update(usertable_params)
-        format.html { redirect_to usertable_url(@usertable), notice: "Your profile was successfully updated." }
+        format.html { redirect_to usertables_path, notice: "Your profile was successfully updated." }
         format.json { render :show, status: :ok, location: @usertable }
       else
         format.html { render :edit, status: :unprocessable_entity }

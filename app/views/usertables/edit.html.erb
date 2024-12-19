@@ -1,10 +1,17 @@
 <div class="max-w-3xl mx-auto px-4">
-  <div class="flex items-center justify-between mb-6 flex-wrap">
-    <h1 class="font-bold text-3xl mb-6">Edit Profile</h1>
+  <div style="display: flex; flex-direction: column; padding-top: 20px;">
+    <%= render 'form', usertable: @usertable %>
+    
     <% if @usertable.persisted? %>
-    <%= button_to 'Delete Profile', @usertable, method: :delete, class: "text-red-700 underline", data: { turbo_confirm: 'Are you sure?' } %>
+      <div style="width: auto; text-align: center; margin-bottom: 16px; align-items: center; justify-content: center;">
+        <%= button_to 'Delete Profile', @usertable, method: :delete, style: "color: #e53e3e; text-decoration: underline;", data: { turbo_confirm: 'Are you sure?' } %>
+      </div>
     <% end %>
   </div>
-
-  <%= render 'form', usertable: @usertable %>
 </div>
+
+<style>
+  .max-w-3xl {
+    max-width: 768px;
+  }
+</style>
