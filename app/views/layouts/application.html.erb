@@ -3,15 +3,22 @@
   <%= render "shared/head" %>
 
   <body class="font-sans font-normal leading-normal flex flex-col min-h-screen bg-gray-100">
+    <% show_sidebar = ['usertables', 'swipes', 'matches', 'memberships', 'messages'].include?(controller_name) && 
+                      !['edit', 'new'].include?(action_name) %>
+                      
     <div class="flex h-screen">
-      <%= render "shared/sidebar" %>
-      
-      <div class="flex-1 flex flex-col overflow-hidden ml-[calc(var(--navbar-width)+2vw)]">
-        <header class="border-b border-gray-300 p-4">
+      <% if show_sidebar %>
+        <%= render "shared/sidebar" %>
+        <div class="flex-1 flex flex-col overflow-hidden ml-[calc(var(--navbar-width)+2vw)]">
+      <% else %>
+        <div class="flex-1 flex flex-col overflow-hidden">
+      <% end %>
+        
+        <header>
           <%= render "shared/flash_notice" %>
         </header>
 
-        <main class="flex-1 flex justify-center overflow-x-hidden overflow-y-auto">
+        <main>
           <%= content_for?(:content) ? yield(:content) : yield %>
         </main>
       </div>

@@ -20,5 +20,12 @@ module NguyenDucAnh0123456789LibrarySystemFinalSubmission
     # config.time_zone = "Central Time (US & Canada)"
     # config.eager_load_paths << Rails.root.join("extras")
     config.hosts << "library-app-production-5dbc.up.railway.app"
+
+    # Thêm dòng này để tắt web console và thông số ping
+    config.middleware.delete Rails::Rack::Logger
+    config.filter_parameters += [:password, :password_confirmation]
+    
+    # Disable Rails logging to stdout in development
+    config.logger = ActiveSupport::Logger.new(nil) if Rails.env.development?
   end
 end

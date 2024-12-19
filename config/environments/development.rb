@@ -69,4 +69,16 @@ Rails.application.configure do
   # Uncomment if you wish to allow Action Cable access from any origin.
   # config.action_cable.disable_request_forgery_protection = true
   
+  # Thêm dòng này để tắt thông số ping
+  config.web_console.permissions = '0.0.0.0/0'
+  config.web_console.whitelisted_ips = '0.0.0.0/0'
+  config.web_console.development_only = false
+
+  # Disable web console
+  config.web_console.enabled = false
+
+  # Disable logging
+  config.logger = ActiveSupport::Logger.new(nil)
+  config.active_record.logger = nil
+  config.middleware.delete Rails::Rack::Logger
 end

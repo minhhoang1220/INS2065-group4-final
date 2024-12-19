@@ -1,6 +1,6 @@
 <div id="mySidepanel" class="sidepanel bg-white flex flex-col fixed h-full">
   <div class="relative flex items-center justify-between min-h-[80px] px-6 border-b border-gray-200">
-    <%= link_to root_path, class: "transition-opacity duration-1000" do %>
+    <%= link_to root_path, class: "transition-opacity duration-1000 mt-3 ml-4" do %>
       <%= image_tag("datingapplogo.png", size: '60', class: "mx-auto") %>
     <% end %>
     
@@ -63,11 +63,11 @@
 .sidepanel {
   width: 256px;
   z-index: 20;
-  top: 12px; /* Cách trên 12px */
-  left: 16px; /* Cách trái 16px */
-  height: calc(100% - 24px); /* Điều chỉnh height tương ứng */
+  top: 0;
+  left: 0;
+  height: 100%;
   overflow-x: hidden;
-  border-radius: 16px;
+  border-radius: 0;
   box-shadow: 0 4px 6px -1px rgb(0 0 0 / 0.1), 0 2px 4px -2px rgb(0 0 0 / 0.1);
   transform: translateX(-100%);
   transition: transform 0.3s cubic-bezier(0.4, 0, 0.2, 1);
@@ -78,8 +78,8 @@
 }
 
 .openbtn {
-  top: 16px; /* Căn nút menu cách trên 16px */
-  left: 32px; /* Căn nút menu cách trái 32px */
+  top: 16px;
+  left: 32px;
   background: none;
   border: none;
   cursor: pointer;
