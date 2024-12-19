@@ -28,7 +28,12 @@
 
     <div style="width: 400px;">
       <%= form.label :active, class: label_class, style: "font-weight: 600; font-size: 20px; line-height: 1.2; letter-spacing: .02rem; padding-bottom: 6px; padding-left: 32px;" %>
-      <%= form.select :active, [['Active', true], ['Inactive', false]], {}, style: "height: 72px; min-height: 66px; padding: 12px 20px; font-weight: 500; font-size: 16px; line-height: 1.5; display: block; width: 100%; outline: 0; background: #fff; color: #282828; border: 1px solid #ced4da; border-radius: 18px; margin-bottom: 20px; transition: all 0.2s ease-in-out;", class: "form-input" %>
+      <%= form.select :active, 
+          [['Active', true], ['Inactive', false]], 
+          {}, 
+          style: "height: 72px; min-height: 66px; padding: 12px 20px; font-weight: 500; font-size: 16px; line-height: 1.5; display: block; width: 100%; outline: 0; background: #fff; color: #282828; border: 1px solid #ced4da; border-radius: 18px; margin-bottom: 20px; transition: all 0.2s ease-in-out;",
+          class: "form-input" 
+      %>
     </div>
 
     <div style="width: 400px;">

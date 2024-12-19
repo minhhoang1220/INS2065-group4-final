@@ -1,26 +1,26 @@
-<div class="fixed top-0 left-0 right-0 h-16 bg-white shadow-sm z-30 flex items-center px-6">
+<div class="fixed top-0 left-0 right-0 h-16 bg-white shadow-sm z-30 flex items-center px-6" style="height: 70px;">
   <div class="flex-1 flex justify-end">
     <%= image_tag("datingapplogo.png", size: '40', class: "mr-4") %>
     <h1 class="text-xl font-bold text-gray-800">Dating App</h1>
   </div>
   
   <div class="flex-1 flex justify-center">
-    <h1 class="text-2xl font-bold text-gray-800">
-      <% if controller_name == 'usertables' && action_name == 'edit' %>
-        Edit Profile
-      <% else %>
-        <% case controller_name %>
-        <% when 'usertables' %>
-          Profile
-        <% when 'swipes' %>
-          Swipe
-        <% when 'messages' %>
-          Message
-        <% when 'memberships' %>
-          Membership
-        <% when 'matches' %>
-          Match
+    <h1 class="text-gray-800" style="font-size: 36px; font-weight: 1000; line-height: 1.2;">
+      <% case controller_name %>
+      <% when 'usertables' %>
+        <% if action_name == 'edit' %>
+          Edit Profile
+        <% else %>
+          Your Profile
         <% end %>
+      <% when 'swipes' %>
+        Swipe
+      <% when 'messages' %>
+        Message
+      <% when 'memberships' %>
+        Membership
+      <% when 'matches' %>
+        Match
       <% end %>
     </h1>
   </div>

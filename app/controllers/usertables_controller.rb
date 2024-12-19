@@ -38,6 +38,11 @@ class UsertablesController < ApplicationController
 
   # PATCH/PUT /usertables/1 or /usertables/1.json
   def update
+    # Convert active param to boolean
+    if params[:usertable] && params[:usertable][:active]
+      params[:usertable][:active] = ActiveModel::Type::Boolean.new.cast(params[:usertable][:active])
+    end
+    
     respond_to do |format|
       if @usertable.update(usertable_params)
         format.html { redirect_to usertables_path, notice: "Your profile was successfully updated." }

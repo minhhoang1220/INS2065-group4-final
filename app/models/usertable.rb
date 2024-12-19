@@ -14,6 +14,8 @@ class Usertable < ApplicationRecord
     validates_numericality_of :age, only_integer: true, greater_than_or_equal_to: 18, less_than_or_equal_to: 100
     validates_inclusion_of :gender, in: %w[male female other]
 
+    attribute :active, :boolean
+
     def matches
         Match.where('User1ID = :id OR User2ID = :id', id: id)
     end

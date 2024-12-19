@@ -1,4 +1,6 @@
-<div class="container mx-auto px-4">
+<%= debug current_user.usertable.attributes if current_user.usertable.present? %>
+
+<div class="container mx-auto px-4" style="padding-top: 30px;">
   <div class="flex justify-center">
     <div class="bg-pastel-blue shadow-md rounded-lg overflow-hidden relative" style="width: 1020.75px; height: 683.903px;">
       <% if current_user.usertable.present? %>
@@ -20,14 +22,19 @@
         </div>
         <div class="p-4" style="width: 510.375px; display: flex; flex-direction: column; justify-content: center;">
           <% if current_user.usertable.present? %>
-            <h2 class="text-5xl font-bold capitalize" style="color: #454650; font-size: 40px; font-weight: 1000;">
+            <h2 class="text-5xl font-bold capitalize" style="color: #454650; font-size: 40px; font-weight: 1000; padding-left: 20px;">
               <%= current_user.usertable.name %>, <%= current_user.usertable.age || "N/A" %>
             </h2>
-            <p class="text-lg font-semibold capitalize" style="color: #727484; font-size: 20px; font-weight: 500;">
+            <p class="text-lg font-semibold capitalize" style="color: #727484; font-size: 20px; font-weight: 500; padding-left: 20px;">
               <%= current_user.usertable.gender&.capitalize || "N/A" %>
             </p>
-            <p class="mt-2 text-lg text-gray-800 capitalize"><%= current_user.usertable.bio %></p>
-            <p class="mt-2 text-lg text-green-500 capitalize"><%= current_user.usertable.active ? "Active" : "Inactive" %></p>
+            <p class="mt-2 text-lg text-gray-800 capitalize" style="padding-left: 20px;"><%= current_user.usertable.bio %></p>
+            <p class="mt-2 text-lg capitalize" style="padding-left: 20px; display: flex; align-items: center;">
+              <span class="inline-block rounded-full <%= current_user.usertable.active ? 'bg-green-500' : 'bg-gray-400' %>" 
+                    style="width: 10px; height: 10px; margin-right: 8px;">
+              </span>
+              <%= current_user.usertable.active ? "Active" : "Inactive" %>
+            </p>
           <% else %>
             <div class="text-center">
               <p class="text-xl text-gray-600">No profile information available</p>

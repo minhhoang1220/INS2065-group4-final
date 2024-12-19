@@ -5,10 +5,9 @@ class CreateUsertables < ActiveRecord::Migration[7.0]
       t.string :name
       t.string :email
       t.string :password
-      t.string :active
+      t.boolean :active, default: true
       t.integer :age
       t.string :gender
-      t.string :image
       t.text :bio
 
       t.timestamps
