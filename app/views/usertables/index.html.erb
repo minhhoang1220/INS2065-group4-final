@@ -13,58 +13,31 @@
     <% end %>
   </div>
 
-  <table class="table-auto border-collapse border-slate-400 w-full">
-    <thead class="bg-slate-50 dark:bg-slate-700">
-      <tr>
-        <th class="border border-slate-300 dark:border-slate-600 font-semibold p-4 text-slate-900 dark:text-slate-200 text-left">Name</th>
-        <th class="border border-slate-300 dark:border-slate-600 font-semibold p-4 text-slate-900 dark:text-slate-200 text-left">Membership</th>
-        <th class="border border-slate-300 dark:border-slate-600 font-semibold p-4 text-slate-900 dark:text-slate-200 text-left">Active</th>
-        <th class="border border-slate-300 dark:border-slate-600 font-semibold p-4 text-slate-900 dark:text-slate-200 text-left">Age</th>
-        <th class="border border-slate-300 dark:border-slate-600 font-semibold p-4 text-slate-900 dark:text-slate-200 text-left">Gender</th>
-        <th class="border border-slate-300 dark:border-slate-600 font-semibold p-4 text-slate-900 dark:text-slate-200 text-left">Image</th>
-        <th class="border border-slate-300 dark:border-slate-600 font-semibold p-4 text-slate-900 dark:text-slate-200 text-left">Bio</th>
-      </tr>
-    </thead>
-
-    <tbody>
-      <% @usertables.each do |usertable| %>
-        <%= content_tag :tr, id: dom_id(usertable), class: dom_class(usertable) do %>
-          <td class="border border-slate-300 dark:border-slate-700 p-4 text-slate-500 dark:text-slate-400"><%= link_to usertable.name, usertable %></td>
-          <td class="border border-slate-300 dark:border-slate-700 p-4 text-slate-500 dark:text-slate-400"><%= usertable.TypeMem || "N/A" %> </td>
-          <td class="border border-slate-300 dark:border-slate-700 p-4 text-slate-500 dark:text-slate-400"><%= usertable.active ? "Active" : "Inactive" %></td>
-          <td class="border border-slate-300 dark:border-slate-700 p-4 text-slate-500 dark:text-slate-400"><%= usertable.age || "N/A" %></td>
-          <td class="border border-slate-300 dark:border-slate-700 p-4 text-slate-500 dark:text-slate-400"><%= usertable.gender&.capitalize || "N/A" %></td>
-          <td class="border border-slate-300 dark:border-slate-700 p-4 text-slate-500 dark:text-slate-400">
-            <% if usertable.image.attached? %>
-              <div class="image-container">
-                <%= image_tag(usertable.image, alt: usertable.name, class: "image-4-3") %>
-              </div>
-            <% else %>
+  <div class="flex justify-center">
+    <div class="bg-pastel-blue shadow-md rounded-lg overflow-hidden" style="width: 1020.75px; height: 683.903px;">
+      <div class="flex">
+        <div style="width: 510.375px; height: 683.903px; overflow: hidden;">
+          <% if current_user.usertable.image.attached? %>
+            <%= image_tag(current_user.usertable.image, alt: current_user.usertable.name, style: "width: 100%; height: 100%; object-fit: cover; object-position: 100% 0;") %>
+          <% else %>
+            <div class="w-full h-full bg-gray-200 flex items-center justify-center">
               <span>No Image</span>
-            <% end %>
-          </td>
-          <td class="border border-slate-300 dark:border-slate-700 p-4 text-slate-500 dark:text-slate-400"><%= usertable.bio %></td>
-        <% end %>
-      <% end %>
-    </tbody>
-  </table>
+            </div>
+          <% end %>
+        </div>
+        <div class="p-4" style="width: 510.375px; display: flex; flex-direction: column; justify-content: center;">
+          <h2 class="text-5xl font-bold capitalize" style="color: #454650; font-size: 40px; font-weight: 1000;"><%= current_user.usertable.name %>, <%= current_user.usertable.age || "N/A" %></h2>
+          <p class="text-lg font-semibold capitalize" style="color: #727484; font-size: 20px; font-weight: 500;"><%= current_user.usertable.gender&.capitalize || "N/A" %></p>
+          <p class="mt-2 text-lg text-gray-800 capitalize"><%= current_user.usertable.bio %></p>
+          <p class="mt-2 text-lg text-green-500 capitalize"><%= current_user.usertable.active ? "Active" : "Inactive" %></p>
+        </div>
+      </div>
+    </div>
+  </div>
 </div>
 
 <style>
-  .image-container {
-    width: 100%;
-    max-width: 100px; /* Adjust as needed */
-    overflow: hidden;
-    position: relative;
-    padding-top: 75%; /* 4:3 Aspect Ratio */
-  }
-
-  .image-4-3 {
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    object-fit: cover;
+  .bg-pastel-blue {
+    background-color: #FFF7D8;
   }
 </style>

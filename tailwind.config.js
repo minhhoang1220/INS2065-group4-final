@@ -9,7 +9,8 @@ module.exports = {
       colors: {
         'tinder-red': '#FD3A73',
         'message-blue': '#00B6FF',
-        'message-gray': '#E9ECEF'
+        'message-gray': '#E9ECEF',
+        'pastel-blue': '#a8d5e2',
       }
     },
   },
