@@ -1,0 +1,96 @@
+<div class="dashboard-stats">
+  <div class="chart-container">
+    <h3>User Growth</h3>
+    <%= line_chart Usertable.group_by_day(:created_at, last: 30).count,
+      title: "New Users (Last 30 days)",
+      colors: ["#00B6FF"],
+      legend: false,
+      points: false,
+      suffix: " users" %>
+  </div>
+
+  <div class="chart-container">
+    <h3>Membership Distribution</h3>
+    <%= pie_chart Usertable.joins(:membership)
+                         .group('memberships.name')
+                         .count,
+      donut: true,
+      colors: ["#201D43", "#00B6FF", "#FF69B4"],
+      legend: "right" %>
+  </div>
+
+  <div class="chart-container">
+    <h3>Messages Activity</h3>
+    <%= column_chart [
+      {name: "Messages Sent", 
+       data: Message.group_by_day(:created_at, last: 7).count},
+      {name: "Active Users", 
+       data: Message.group_by_day(:created_at, last: 7)
+                   .distinct.count(:senderID)}
+    ], stacked: true %>
+  </div>
+
+  <div class="chart-container">
+    <h3>Match Statistics</h3>
+    <%= area_chart Match.group_by_day(:created_at, last: 14).count,
+      title: "New Matches (Last 14 days)",
+      colors: ["#FF69B4"] %>
+  </div>
+
+  <div class="chart-container">
+    <h3>User Activity by Hour</h3>
+    <%= bar_chart Message.group_by_hour_of_day(:created_at).count,
+      title: "Message Distribution by Hour",
+      colors: ["#00B6FF"] %>
+  </div>
+
+  <div class="chart-container">
+    <h3>Membership Conversion Rate</h3>
+    <%= line_chart [
+      {name: "Free Users", 
+       data: Usertable.where(membership: 'free')
+                     .group_by_week(:created_at, last: 8).count},
+      {name: "Premium Users", 
+       data: Usertable.where(membership: 'premium')
+                     .group_by_week(:created_at, last: 8).count}
+    ] %>
+  </div>
+</div>
+
+<% content_for :styles do %>
+  <style>
+    .dashboard-stats {
+      padding: 20px;
+      background: #f5f5f5;
+    }
+
+    .chart-container {
+      background: white;
+      padding: 20px;
+      border-radius: 8px;
+      margin-bottom: 20px;
+      box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+    }
+
+    .chart-container h3 {
+      margin-bottom: 15px;
+      color: #333;
+      font-size: 18px;
+      font-weight: 500;
+    }
+
+    @media (min-width: 768px) {
+      .dashboard-stats {
+        display: grid;
+        grid-template-columns: repeat(2, 1fr);
+        gap: 20px;
+      }
+    }
+
+    @media (min-width: 1200px) {
+      .dashboard-stats {
+        grid-template-columns: repeat(3, 1fr);
+      }
+    }
+  </style>
+<% end %> 

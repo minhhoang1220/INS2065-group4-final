@@ -26,7 +26,10 @@ RailsAdmin.config do |config|
   config.main_app_name = ["Dating App", "- Admin Panel"]
 
   config.actions do
-    dashboard                     # mandatory
+    dashboard do
+      statistics true
+      template 'main/dashboard'
+    end
     index                         # mandatory
     new
     export
@@ -47,6 +50,44 @@ RailsAdmin.config do |config|
       field :email
       field :membership
       # other fields
+    end
+  end
+
+  config.model 'Dashboard' do
+    navigation_label 'Analytics'
+    
+    list do
+      field :total_users do
+        formatted_value do
+          bindings[:object].instance_eval do
+            Usertable.count
+          end
+        end
+      end
+
+      field :premium_users do
+        formatted_value do
+          bindings[:object].instance_eval do
+            Usertable.where(membership: 'premium').count
+          end
+        end
+      end
+
+      field :total_matches do
+        formatted_value do
+          bindings[:object].instance_eval do
+            Match.count
+          end
+        end
+      end
+
+      field :messages_today do
+        formatted_value do
+          bindings[:object].instance_eval do
+            Message.where('created_at >= ?', Time.zone.now.beginning_of_day).count
+          end
+        end
+      end
     end
   end
 end
