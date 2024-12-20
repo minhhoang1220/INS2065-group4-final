@@ -81,4 +81,16 @@ Rails.application.configure do
   config.logger = ActiveSupport::Logger.new(nil)
   config.active_record.logger = nil
   config.middleware.delete Rails::Rack::Logger
+
+  # Cho phép serving static files từ public/assets
+  config.public_file_server.enabled = true
+  
+  # Không compress assets
+  config.assets.compress = false
+  
+  # Debug mode disables concatenation and preprocessing of assets
+  config.assets.debug = true
+  
+  # Asset digests allow you to set far-future HTTP expiration dates on all assets
+  config.assets.digest = true
 end

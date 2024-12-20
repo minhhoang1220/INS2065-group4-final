@@ -1,0 +1,82 @@
+<div class="topbar">
+  <div class="topbar-content">
+    <div class="brand">
+      <%= link_to rails_admin.dashboard_path do %>
+        <% if _current_user %>
+          <%= image_tag("datingapplogo.png", size: '40', class: "logo") %>
+        <% end %>
+        <span>Dating App Admin</span>
+      <% end %>
+    </div>
+    <div class="user-menu">
+      <% if _current_user %>
+        <span class="user-email"><%= _current_user.email %></span>
+        <%= link_to main_app.destroy_user_session_path, 
+            method: :delete, 
+            class: 'logout-btn',
+            data: { turbo_method: :delete } do %>
+          <i class="fas fa-sign-out-alt"></i>
+          <span>Logout</span>
+        <% end %>
+      <% end %>
+    </div>
+  </div>
+
+  <style>
+    .topbar-content {
+      max-width: 1400px;
+      margin: 0 auto;
+      padding: 0 20px;
+      height: 70px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+
+    .brand {
+      font-size: 20px;
+      font-weight: 500;
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+
+    .brand a {
+      color: #201D43;
+      text-decoration: none;
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+
+    .logo {
+      border-radius: 4px;
+    }
+
+    .user-menu {
+      display: flex;
+      align-items: center;
+      gap: 16px;
+    }
+
+    .user-email {
+      color: #666;
+    }
+
+    .logout-btn {
+      padding: 8px 16px;
+      border-radius: 4px;
+      background: #201D43;
+      color: white;
+      text-decoration: none;
+      transition: background-color 0.2s;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .logout-btn:hover {
+      background: #161232;
+    }
+  </style>
+</div> 

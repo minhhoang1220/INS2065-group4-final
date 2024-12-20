@@ -1,10 +1,11 @@
 class ApplicationController < ActionController::Base
+  helper CustomHelper
   protect_from_forgery with: :exception
 
   before_action :configure_permitted_parameters, if: :devise_controller?
   before_action :authorized
 
-  skip_before_action :authorized, if: :devise_controller? # Bỏ qua Authorization cho Devise
+  skip_before_action :authorized, if: :devise_controller?
 
   protected
 

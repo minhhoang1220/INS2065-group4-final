@@ -28,4 +28,10 @@ Rails.application.routes.draw do
   resources :matches do
     resources :messages, only: [:index, :create]
   end
+
+  resources :memberships do
+    collection do
+      get 'new', to: 'memberships#new', as: 'new_admin_membership'
+    end
+  end
 end

@@ -4,5 +4,7 @@ import "./controllers"
 import "trix"
 import "@rails/actiontext"
 
-//= require Chart.bundle
-//= require chartkick
+// Import Chartkick và Chart.js
+import { Chart } from 'chart.js/auto'
+import "chartkick"
+import "chartkick/chart.js"

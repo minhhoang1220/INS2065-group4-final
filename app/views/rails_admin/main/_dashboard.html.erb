@@ -1,59 +1,46 @@
 <div class="dashboard-stats">
-  <div class="chart-container">
-    <h3>User Growth</h3>
-    <%= line_chart Usertable.group_by_day(:created_at, last: 30).count,
-      title: "New Users (Last 30 days)",
-      colors: ["#00B6FF"],
-      legend: false,
-      points: false,
-      suffix: " users" %>
-  </div>
+  <div class="charts-grid">
+    <div class="chart-container">
+      <h3>User Growth</h3>
+      <div class="chart-box">
+        <%= line_chart @new_users_data, 
+          title: "New Users (Last 30 days)", 
+          colors: ["#1F98F9"],
+          round: 3,
+          legend: false %>
+      </div>
+    </div>
 
-  <div class="chart-container">
-    <h3>Membership Distribution</h3>
-    <%= pie_chart Usertable.joins(:membership)
-                         .group('memberships.name')
-                         .count,
-      donut: true,
-      colors: ["#201D43", "#00B6FF", "#FF69B4"],
-      legend: "right" %>
-  </div>
+    <div class="chart-container">
+      <h3>Message Activity</h3>
+      <div class="chart-box">
+        <%= column_chart @messages_per_day, 
+          title: "Messages per Day",
+          colors: ["#FF7EB3"],
+          round: 3,
+          legend: false %>
+      </div>
+    </div>
 
-  <div class="chart-container">
-    <h3>Messages Activity</h3>
-    <%= column_chart [
-      {name: "Messages Sent", 
-       data: Message.group_by_day(:created_at, last: 7).count},
-      {name: "Active Users", 
-       data: Message.group_by_day(:created_at, last: 7)
-                   .distinct.count(:senderID)}
-    ], stacked: true %>
-  </div>
+    <div class="chart-container">
+      <h3>Membership Types</h3>
+      <div class="chart-box">
+        <table class="membership-table">
+          <!-- table content -->
+        </table>
+      </div>
+    </div>
 
-  <div class="chart-container">
-    <h3>Match Statistics</h3>
-    <%= area_chart Match.group_by_day(:created_at, last: 14).count,
-      title: "New Matches (Last 14 days)",
-      colors: ["#FF69B4"] %>
-  </div>
-
-  <div class="chart-container">
-    <h3>User Activity by Hour</h3>
-    <%= bar_chart Message.group_by_hour_of_day(:created_at).count,
-      title: "Message Distribution by Hour",
-      colors: ["#00B6FF"] %>
-  </div>
-
-  <div class="chart-container">
-    <h3>Membership Conversion Rate</h3>
-    <%= line_chart [
-      {name: "Free Users", 
-       data: Usertable.where(membership: 'free')
-                     .group_by_week(:created_at, last: 8).count},
-      {name: "Premium Users", 
-       data: Usertable.where(membership: 'premium')
-                     .group_by_week(:created_at, last: 8).count}
-    ] %>
+    <div class="chart-container">
+      <h3>Match Statistics</h3>
+      <div class="chart-box">
+        <%= line_chart @matches_data,
+          title: "Daily Matches",
+          colors: ["#FF7EB3"],
+          round: 3,
+          legend: false %>
+      </div>
+    </div>
   </div>
 </div>
 

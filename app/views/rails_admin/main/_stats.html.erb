@@ -1,0 +1,37 @@
+<div class="dashboard-stats">
+  <div class="chart-container">
+    <h3>User Growth</h3>
+    <%= line_chart Usertable.user_growth_stats,
+      title: "New Users (Last 30 days)",
+      colors: ["#00B6FF"],
+      legend: false %>
+  </div>
+
+  <div class="chart-container">
+    <h3>Message Activity</h3>
+    <%= column_chart Message.group_by_day(:created_at, last: 7).count,
+      title: "Messages per Day",
+      colors: ["#FF69B4"] %>
+  </div>
+
+  <div class="chart-container">
+    <h3>Membership Types</h3>
+    <%= pie_chart Usertable.membership_distribution,
+      donut: true,
+      colors: ["#201D43", "#00B6FF", "#FF69B4"] %>
+  </div>
+
+  <div class="chart-container">
+    <h3>Match Statistics</h3>
+    <%= area_chart Match.group_by_day(:created_at, last: 14).count,
+      title: "Daily Matches",
+      colors: ["#FF69B4"] %>
+  </div>
+
+  <div class="chart-container">
+    <h3>User Activity by Hour</h3>
+    <%= bar_chart Message.group_by_hour_of_day(:created_at).count,
+      title: "Message Distribution",
+      colors: ["#00B6FF"] %>
+  </div>
+</div> 

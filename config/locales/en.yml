@@ -31,3 +31,18 @@
 
 en:
   hello: "Hello world"
+  admin:
+    misc:
+      bulk_menu_title: Selected Items
+    form:
+      confirmation: Are you sure you want to perform this action?
+    actions:
+      bulk_delete:
+        menu: "Delete selected"
+        title: "Delete selected %{model_label_plural}"
+        success: "Successfully deleted %{model_label_plural}"
+        error: "Failed to delete %{model_label_plural}"
+      export:
+        menu: "Export selected"
+        title: "Export %{model_label_plural}"
+        success: "Export completed"

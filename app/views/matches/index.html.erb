@@ -12,26 +12,7 @@
                 <!-- Avatar Circle với Active Status -->
                 <div class="flex justify-center">
                   <div class="relative" style="width: 120px; height: 120px;">
-                    <% if matched_user.image.attached? %>
-                      <%= image_tag(matched_user.image, 
-                          class: "rounded-full", 
-                          style: "width: 120px; height: 120px; object-fit: cover;"
-                      ) %>
-                    <% else %>
-                      <div class="rounded-full bg-gray-200 flex items-center justify-center" 
-                           style="width: 120px; height: 120px;">
-                        <span class="text-gray-400">No Image</span>
-                      </div>
-                    <% end %>
-                    
-                    <!-- Active Status Dot -->
-                    <div class="absolute" style="bottom: 0; right: 0; transform: translate(20%, 20%); display: flex;">
-                      <span class="rounded-full" 
-                            style="width: 15px; height: 15px; border: 2px solid white; 
-                                   background-color: <%= matched_user.active ? '#22c55e' : '#9ca3af' %>;"
-                            title="<%= matched_user.active ? 'Active now' : 'Inactive' %>">
-                      </span>
-                    </div>
+                    <p>No Image</p>
                   </div>
                 </div>
 

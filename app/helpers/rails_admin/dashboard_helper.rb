@@ -20,5 +20,12 @@ module RailsAdmin
       rate = (premium.to_f / total * 100).round(1)
       "#{rate}%"
     end
+
+    def format_membership_stats
+      Usertable.joins(:membership)
+               .group('memberships.membership_type')
+               .count
+               .transform_keys { |key| key.titleize }
+    end
   end
 end 

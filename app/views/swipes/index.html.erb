@@ -4,13 +4,7 @@
       <div class="gradient-background shadow-md rounded-lg overflow-hidden relative" style="width: 1020.75px; height: 683.903px;">
         <div class="flex">
           <div style="width: 510.375px; height: 683.903px; overflow: hidden;">
-            <% if @random_profile.image.attached? %>
-              <%= image_tag(@random_profile.image, alt: @random_profile.name, style: "width: 100%; height: 100%; object-fit: cover; object-position: 100% 0;") %>
-            <% else %>
-              <div class="w-full h-full bg-gray-200 flex items-center justify-center">
-                <span>No Image</span>
-              </div>
-            <% end %>
+            <p>No Image</p>
           </div>
 
           <div class="p-4" style="width: 510.375px; display: flex; flex-direction: column; justify-content: center;">

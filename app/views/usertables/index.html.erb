@@ -10,13 +10,7 @@
 
       <div class="flex">
         <div style="width: 510.375px; height: 683.903px; overflow: hidden;">
-          <% if current_user.usertable&.image&.attached? %>
-            <%= image_tag(current_user.usertable.image, alt: current_user.usertable.name, style: "width: 100%; height: 100%; object-fit: cover; object-position: 100% 0;") %>
-          <% else %>
-            <div class="w-full h-full bg-gray-200 flex items-center justify-center">
-              <span>No Image</span>
-            </div>
-          <% end %>
+          <p>No Image</p>
         </div>
         <div class="p-4" style="width: 510.375px; display: flex; flex-direction: column; justify-content: center;">
           <% if current_user.usertable.present? %>

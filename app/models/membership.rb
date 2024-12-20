@@ -1,7 +1,6 @@
 class Membership < ApplicationRecord
     has_many :usertables
 
-    validates_presence_of :TypeMem, :price
-    validates_uniqueness_of :TypeMem
-    validates_numericality_of :price, greater_than_or_equal_to: 0
+    validates :TypeMem, presence: true
+    validates :price, presence: true, numericality: { greater_than_or_equal_to: 0 }
 end

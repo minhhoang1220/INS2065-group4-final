@@ -1,0 +1,42 @@
+<div class="bulk-menu dropdown">
+  <button class="btn btn-secondary dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false">
+    <%= t('admin.misc.bulk_menu_title') %> <span class="caret"></span>
+  </button>
+  
+  <ul class="dropdown-menu">
+    <% RailsAdmin::Config::Actions.all(:bulkable).each do |action| %>
+      <li>
+        <%= link_to(t("admin.actions.#{action.key}.menu"), 
+            rails_admin.bulk_action_path(
+              model_name: @abstract_model.to_param,
+              action: action.action_name,
+              bulk_ids: []
+            ), 
+            class: 'dropdown-item bulk-link', 
+            data: { 
+              action: action.action_name,
+              confirm: action.key == 'bulk_delete' ? t('admin.form.confirmation') : nil 
+            }) %>
+      </li>
+    <% end %>
+  </ul>
+</div>
+
+<% content_for :scripts do %>
+  <script>
+    $(document).ready(function() {
+      $('.bulk-link').click(function(e) {
+        e.preventDefault();
+        var link = $(this);
+        var form = $('#bulk_form');
+        var action = link.data('action');
+        var confirmMessage = link.data('confirm');
+        
+        if (!confirmMessage || confirm(confirmMessage)) {
+          form.attr('action', link.attr('href'));
+          form.submit();
+        }
+      });
+    });
+  </script>
+<% end %> 

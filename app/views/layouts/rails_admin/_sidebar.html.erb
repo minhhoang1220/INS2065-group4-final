@@ -1,0 +1,92 @@
+<div id="admin-sidebar" class="sidebar-container" style="background-color: white;">
+  <div class="sidebar-menu">
+    <ul class="nav-list">
+      <%# Dashboard Link %>
+      <li class="nav-item">
+        <%= link_to rails_admin.dashboard_path do %>
+          <span class="nav-item__icon">
+            <i class="fas <%= get_icon_class('dashboard') %>"></i>
+          </span>
+          <span class="nav-item__text">Dashboard</span>
+        <% end %>
+      </li>
+
+      <%# Model Links %>
+      <% RailsAdmin.config.included_models.each do |model_name| %>
+        <% next unless model = RailsAdmin.config(model_name) %>
+        <% next unless model.abstract_model %>
+        <li class="nav-item">
+          <%= link_to rails_admin.index_path(model_name: model.abstract_model.to_param) do %>
+            <span class="nav-item__icon">
+              <i class="fas <%= get_icon_class(model_name) %>"></i>
+            </span>
+            <span class="nav-item__text"><%= model.label_plural %></span>
+          <% end %>
+        </li>
+      <% end %>
+    </ul>
+  </div>
+</div>
+
+<style>
+  .sidebar-container {
+    width: 4rem;
+    background-color: white;
+    transition: all 0.3s ease;
+    overflow: hidden;
+    box-shadow: 2px 0 5px rgba(0,0,0,0.1);
+  }
+
+  .sidebar-container:hover {
+    width: 12rem;
+  }
+
+  .nav-list {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+  }
+
+  .nav-item {
+    width: 100%;
+  }
+
+  .nav-item a {
+    padding: 1rem;
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    width: 100%;
+    color: #333;
+    transition: background-color 0.2s;
+    text-decoration: none;
+  }
+
+  .nav-item:hover {
+    background-color: #f5f5f5;
+  }
+
+  .nav-item__icon {
+    min-width: 2rem;
+    text-align: center;
+  }
+
+  .nav-item__text {
+    display: none;
+    white-space: nowrap;
+  }
+
+  .sidebar-container:hover .nav-item__text {
+    display: block;
+  }
+
+  .main-content {
+    margin-left: 4rem;
+    padding: 20px;
+    transition: margin-left 0.3s ease;
+  }
+
+  .sidebar-container:hover + .main-content {
+    margin-left: 12rem;
+  }
+</style> 

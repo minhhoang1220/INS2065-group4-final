@@ -39,15 +39,7 @@
     </li>
     <li>
       <p class="font-semibold">Image:</p>
-      <p>
-        <% if @usertable.image.attached? %>
-          <div class="image-container">
-            <%= image_tag(@usertable.image, alt: @usertable.name, class: "image-4-3") %>
-          </div>
-        <% else %>
-          <span>No Image</span>
-        <% end %>
-      </p>
+      <p>No Image</p>
     </li>
     <li>
       <p class="font-semibold">Bio:</p>

@@ -1,0 +1,13 @@
+<div class="table-actions">
+  <%= link_to edit_url, class: 'btn-edit', style: 'background: #fff; border: 1px solid #dee2e6; color: #1F98F9; width: 32px; height: 32px; border-radius: 8px; display: inline-flex; align-items: center; justify-content: center; transition: all 0.2s;' do %>
+    <i class="fas fa-edit"></i>
+  <% end %>
+
+  <%= link_to delete_url, 
+    class: 'btn-delete', 
+    style: 'background: #fff; border: 1px solid #dee2e6; color: #dc3545; width: 32px; height: 32px; border-radius: 8px; display: inline-flex; align-items: center; justify-content: center; transition: all 0.2s;',
+    data: { confirm: 'Are you sure you want to delete this?' },
+    method: :delete do %>
+    <i class="fas fa-trash"></i>
+  <% end %>
+</div> 

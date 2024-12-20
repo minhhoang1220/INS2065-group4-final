@@ -19,14 +19,7 @@
           <%= link_to messages_path(match_id: match.id) do %>
             <div class="match-item <%= 'active' if @match&.id == match.id %>">
               <div class="avatar-container">
-                <% if other_user.image.attached? %>
-                  <%= image_tag(other_user.image) %>
-                <% else %>
-                  <div class="no-image">
-                    <span>No Image</span>
-                  </div>
-                <% end %>
-                <span class="status-dot <%= other_user.active ? 'online' : 'offline' %>"></span>
+                <p>No Image</p>
               </div>
               <div class="match-info">
                 <div class="name"><%= other_user.name.titleize %></div>
